@@ -1,0 +1,20 @@
+{
+		"env": {
+			"browser": true
+		},
+    "extends": [
+        "airbnb",
+        "prettier"
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": ["prettier"],
+    "rules": {
+        "prettier/prettier": "error",
+        "no-unused-vars":"warn",
+        "indent": ["error", "tab"],
+				"lines-between-class-members": "off"
+    }
+}
