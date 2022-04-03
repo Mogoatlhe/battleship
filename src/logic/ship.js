@@ -1,5 +1,6 @@
 export default (length) => {
 	const ship = [];
+	let coordinates;
 
 	(() => {
 		if (length > 4 || length < 1) {
@@ -11,7 +12,7 @@ export default (length) => {
 		}
 	})();
 
-	const getShip = () => ship;
+	const getShipLength = () => ship.length;
 
 	const hitShip = (position) => {
 		if (position < 0 || position > ship.length) {
@@ -41,5 +42,28 @@ export default (length) => {
 		return true;
 	};
 
-	return { getShip, hitShip, isSunk };
+	const setCoordinates = (coordinate, direction) => {
+		if (coordinate < 0) {
+			return "error: negative coordinates given";
+		}
+
+		if (coordinate > 99) {
+			return "error: coordinates position cannot be greater than grid size";
+		}
+
+		if (direction !== "horizontal" && direction !== "vertical") {
+			return "error: direction can only be (h) horizontal or (v) vertical";
+		}
+
+		coordinates = {
+			coordinate,
+			direction,
+		};
+
+		return true;
+	};
+
+	const getCoordinates = () => coordinates;
+
+	return { getShipLength, hitShip, isSunk, setCoordinates, getCoordinates };
 };
