@@ -28,7 +28,11 @@ export default () => {
 			typeof ship !== "object" ||
 			ship.isSunk === undefined
 		) {
-			return "ship object passed is not of type Ship";
+			throw new Error("ship object passed is not of type Ship");
+		}
+
+		if (typeof starting !== "number") {
+			throw new Error("'starting' value must be a number");
 		}
 	};
 
