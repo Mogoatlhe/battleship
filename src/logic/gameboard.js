@@ -21,19 +21,112 @@ export default () => {
 		lengthFourShip
 	);
 
-	const placeShip = (ship, starting, direction) => {
-		if (
-			ship === null ||
-			ship === undefined ||
-			typeof ship !== "object" ||
-			ship.isSunk === undefined
-		) {
-			throw new Error("ship object passed is not of type Ship");
+	const getPositions = (first, direction, length) => {
+		const positions = [first];
+
+		if (direction === "horizontal") {
+			for (let i = 0; i < length; i += 1) {
+				positions.push(positions[i - 1] + 1);
+			}
+		} else {
+			for (let i = 0; i < length; i += 1) {
+				positions.push(positions[i - 1] + 10);
+			}
+		}
+
+		return positions;
+	};
+
+	const isClose = (currShipPositions, newShipPos) =>
+		currShipPositions.some((currShipPos) => {
+			let positionStart = currShipPos - 11;
+			let temp = 0;
+
+			while (positionStart < currShipPos + 12) {
+				if (positionStart === newShipPos) {
+					return true;
+				}
+
+				temp += 1;
+
+				if (temp === 3) {
+					temp = 0;
+					positionStart += 8;
+				} else {
+					positionStart += 1;
+				}
+			}
+
+			return false;
+		});
+
+	const compareShips = (tempShips, positions) => {
+		tempShips.forEach((currShip) => {
+			const currShipLength = currShip.getShipLength();
+			const coordinates = currShip.getCoordinates();
+			const currShipPositions = getPositions(
+				coordinates.coordinate,
+				coordinates.direction,
+				currShipLength
+			);
+
+			positions.forEach((newShipPos) => {
+				const close = isClose(currShipPositions, newShipPos);
+
+				if (close) {
+					throw new Error("too close to another ship");
+				}
+			});
+		});
+	};
+
+	const placeShip = (index, starting, direction) => {
+		if (typeof index !== "number") {
+			throw new Error("index must be a number");
+		}
+
+		if (index < 0 || index > 9) {
+			throw new Error("index must be between 0 and 9, inclusive");
 		}
 
 		if (typeof starting !== "number") {
 			throw new Error("'starting' value must be a number");
 		}
+
+		if (starting < 0 || starting > 99) {
+			throw new Error("'starting' value must be between 0 and 99, inclusive");
+		}
+
+		if (typeof direction !== "string") {
+			throw new Error("'direction' value must be a string");
+		}
+
+		if (direction !== "horizontal" && direction !== "vertical") {
+			throw new Error(
+				"'direction' value must be either 'horizontal' or 'vertical'"
+			);
+		}
+
+		const ship = ships[index];
+		const length = ship.getShipLength();
+		const lengthSize = starting.toString().length;
+		const lastDigit = lengthSize === 1 ? starting : starting % 3;
+
+		if (
+			(direction === "horizontal" && length > 1 && lastDigit + length > 9) ||
+			(direction === "vertical" && starting >= 90 && length > 1)
+		) {
+			throw new Error("ship is out of bounds");
+		}
+
+		const positions = getPositions(starting, direction, length);
+
+		const tempShips = ships.filter(
+			(currShip) => currShip.getCoordinates() !== undefined
+		);
+
+		compareShips(tempShips, positions);
+		ship.setCoordinates(starting, direction);
 	};
 
 	return { placeShip };
