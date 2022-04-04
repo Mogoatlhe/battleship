@@ -128,3 +128,49 @@ describe("place ships", () => {
 		}).toThrow("too close to another ship");
 	});
 });
+
+describe("receive attack", () => {
+	test("receive attack: coordinate must be a number", () => {
+		expect(() => gameboard.receiveAttack(null)).toThrow(
+			"coordinate value must be a number"
+		);
+	});
+
+	test("receive attack: negative coordinate value", () => {
+		expect(() => gameboard.receiveAttack(-1)).toThrow(
+			"coordinate value must be between 0 and 99, inclusive"
+		);
+	});
+
+	test("receive attack: large coordinate value", () => {
+		expect(() => gameboard.receiveAttack(100)).toThrow(
+			"coordinate value must be between 0 and 99, inclusive"
+		);
+	});
+
+	test("receive attack: miss", () => {
+		expect(gameboard.receiveAttack(44)).toBe(false);
+	});
+
+	test("receive attack: hit", () => {
+		expect(gameboard.receiveAttack(45)).toBe(true);
+	});
+
+	test("receive attack: hitting an already hit place", () => {
+		expect(() => gameboard.receiveAttack(44)).toThrow(
+			"cannot hit an already hit spot"
+		);
+	});
+
+	test("receive attack: hitting an already hit place", () => {
+		expect(() => gameboard.receiveAttack(45)).toThrow(
+			"cannot hit an already hit spot"
+		);
+	});
+});
+
+describe("did all ships sink", () => {
+	test("not all ships sunk", () => {
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+});

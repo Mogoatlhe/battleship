@@ -11,6 +11,8 @@ export default () => {
 		return ships;
 	};
 
+	const attackAttempts = [];
+	const missedPositions = [];
 	const lengthFourShip = Ship(4);
 	const lengthThreeShips = createShipCollection(3, 2);
 	const lengthTwoShips = createShipCollection(2, 3);
@@ -129,5 +131,44 @@ export default () => {
 		ship.setCoordinates(starting, direction);
 	};
 
-	return { placeShip };
+	const receiveAttack = (coordinate) => {
+		if (typeof coordinate !== "number") {
+			throw new Error("coordinate value must be a number");
+		}
+
+		if (coordinate < 0 || coordinate > 99) {
+			throw new Error("coordinate value must be between 0 and 99, inclusive");
+		}
+
+		if (attackAttempts.some((pos) => pos === coordinate)) {
+			throw Error("cannot hit an already hit spot");
+		}
+
+		const placedShips = ships.filter(
+			(ship) => ship.getCoordinates() !== undefined && !ship.isSunk()
+		);
+
+		let hitPosition;
+		const attackedShip = placedShips.find((placedShip) => {
+			const starting = placedShip.getCoordinates().coordinate;
+			const { direction } = placedShip.getCoordinates;
+			const length = placedShip.getShipLength();
+			const placedShipPos = getPositions(starting, direction, length);
+			hitPosition = placedShipPos.findIndex((pos) => pos === coordinate);
+			return hitPosition === undefined ? undefined : placedShipPos[hitPosition];
+		});
+
+		attackAttempts.push(coordinate);
+		if (attackedShip === undefined) {
+			missedPositions.push(coordinate);
+			return false;
+		}
+
+		attackedShip.hitShip(hitPosition);
+		return true;
+	};
+
+	const didAllSink = () => ships.every((ship) => ship.isSunk());
+
+	return { placeShip, receiveAttack, didAllSink };
 };
