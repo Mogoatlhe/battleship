@@ -23,15 +23,17 @@ export default () => {
 		lengthFourShip
 	);
 
+	const getShips = () => ships;
+
 	const getPositions = (first, direction, length) => {
 		const positions = [first];
 
 		if (direction === "horizontal") {
-			for (let i = 0; i < length; i += 1) {
+			for (let i = 1; i < length; i += 1) {
 				positions.push(positions[i - 1] + 1);
 			}
 		} else {
-			for (let i = 0; i < length; i += 1) {
+			for (let i = 1; i < length; i += 1) {
 				positions.push(positions[i - 1] + 10);
 			}
 		}
@@ -112,11 +114,14 @@ export default () => {
 		const ship = ships[index];
 		const length = ship.getShipLength();
 		const lengthSize = starting.toString().length;
-		const lastDigit = lengthSize === 1 ? starting : starting % 3;
+		const lastDigit = lengthSize === 1 ? starting : starting % 10;
+		const firstDigit =
+			lengthSize === 1 ? starting : Number(starting.toString()[0]);
 
 		if (
-			(direction === "horizontal" && length > 1 && lastDigit + length > 9) ||
-			(direction === "vertical" && starting >= 90 && length > 1)
+			length > 1 &&
+			((direction === "horizontal" && lastDigit + length > 10) ||
+				(direction === "vertical" && firstDigit + length > 10))
 		) {
 			throw new Error("ship is out of bounds");
 		}
@@ -170,5 +175,5 @@ export default () => {
 
 	const didAllSink = () => ships.every((ship) => ship.isSunk());
 
-	return { placeShip, receiveAttack, didAllSink };
+	return { placeShip, receiveAttack, didAllSink, getShips };
 };

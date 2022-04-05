@@ -4,6 +4,8 @@ export default (name) => {
 	const gameboard = Gameboard();
 	const getName = () => name;
 
+	const getShips = () => gameboard.getShips();
+
 	const placeShip = (index, starting, direction) => {
 		if (typeof index !== "number") {
 			throw new Error("index must be a number");
@@ -34,6 +36,27 @@ export default (name) => {
 		gameboard.placeShip(index, starting, direction);
 	};
 
+	const randomiseShipPlacement = () => {
+		try {
+			const ships = gameboard.getShips();
+			const index = ships.findIndex(
+				(ship) => ship.getCoordinates() === undefined
+			);
+
+			const directions = ["horizontal", "vertical"];
+			const starting = Math.floor(Math.random() * 100);
+			const directionsIndex = Math.floor(Math.random() * 100);
+
+			placeShip(index, starting, directions[directionsIndex]);
+
+			if (ships.some((ship) => ship.getCoordinates() === undefined)) {
+				randomiseShipPlacement();
+			}
+		} catch (e) {
+			randomiseShipPlacement();
+		}
+	};
+
 	const attack = (enemy, coordinate) => enemy.receiveAttack(coordinate);
 
 	const receiveAttack = (coordinate) => {
@@ -46,5 +69,11 @@ export default (name) => {
 		}
 	};
 
-	return { getName, receiveAttack, placeShip };
+	return {
+		getName,
+		receiveAttack,
+		placeShip,
+		randomiseShipPlacement,
+		getShips,
+	};
 };

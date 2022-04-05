@@ -4,7 +4,7 @@ let gameboard;
 
 beforeAll(() => {
 	gameboard = Gameboard();
-	gameboard.placeShip(0, 45, "horizontal");
+	gameboard.placeShip(4, 45, "horizontal");
 });
 
 describe("place ships", () => {
@@ -62,69 +62,165 @@ describe("place ships", () => {
 		}).toThrow("ship is out of bounds");
 	});
 
+	// test("ship out of bounds: horizontal", () => {
+	// 	expect(() => {
+	// 		gameboard.placeShip(4, 8, "horizontal");
+	// 	});
+	// });
+
+	test("ship out of bounds: horizontal", () => {
+		expect(() => {
+			gameboard.placeShip(7, 9, "horizontal");
+		}).toThrow("ship is out of bounds");
+	});
+
+	test("ship out of bounds: horizontal", () => {
+		expect(() => {
+			gameboard.placeShip(7, 8, "horizontal");
+		}).toThrow("ship is out of bounds");
+	});
+
+	// test("ship out of bounds: horizontal", () => {
+	// 	expect(() => {
+	// 		gameboard.placeShip(7, 7, "horizontal");
+	// 	});
+	// });
+
+	test("ship out of bounds: horizontal", () => {
+		expect(() => {
+			gameboard.placeShip(9, 9, "horizontal");
+		}).toThrow("ship is out of bounds");
+	});
+
+	test("ship out of bounds: horizontal", () => {
+		expect(() => {
+			gameboard.placeShip(9, 8, "horizontal");
+		}).toThrow("ship is out of bounds");
+	});
+
+	test("ship out of bounds: horizontal", () => {
+		expect(() => {
+			gameboard.placeShip(9, 7, "horizontal");
+		}).toThrow("ship is out of bounds");
+	});
+
+	// test("ship out of bounds: horizontal", () => {
+	// 	expect(() => {
+	// 		gameboard.placeShip(9, 6, "horizontal");
+	// 	});
+	// });
+
 	test("ship out of bounds: vertical", () => {
 		expect(() => {
 			gameboard.placeShip(4, 90, "vertical");
 		}).toThrow("ship is out of bounds");
 	});
 
+	// test("ship out of bounds: vertical", () => {
+	// 	expect(() => {
+	// 		gameboard.placeShip(4, 80, "vertical");
+	// 	});
+	// });
+
+	test("ship out of bounds: vertical", () => {
+		expect(() => {
+			gameboard.placeShip(7, 90, "vertical");
+		}).toThrow("ship is out of bounds");
+	});
+
+	test("ship out of bounds: vertical", () => {
+		expect(() => {
+			gameboard.placeShip(7, 80, "vertical");
+		}).toThrow("ship is out of bounds");
+	});
+
+	// test("ship out of bounds: vertical", () => {
+	// 	expect(() => {
+	// 		gameboard.placeShip(7, 70, "vertical");
+	// 	});
+	// });
+
 	test("ship are too close", () => {
 		expect(() => {
-			gameboard.placeShip(0, 45, "horizontal");
+			gameboard.placeShip(4, 45, "horizontal");
 		}).toThrow("too close to another ship");
 	});
 
 	test("ship are too close", () => {
 		expect(() => {
-			gameboard.placeShip(0, 34, "horizontal");
+			gameboard.placeShip(7, 32, "horizontal");
 		}).toThrow("too close to another ship");
 	});
 
 	test("ship are too close", () => {
 		expect(() => {
-			gameboard.placeShip(0, 35, "horizontal");
+			gameboard.placeShip(7, 33, "horizontal");
 		}).toThrow("too close to another ship");
 	});
 
 	test("ship are too close", () => {
 		expect(() => {
-			gameboard.placeShip(0, 36, "horizontal");
+			gameboard.placeShip(7, 34, "horizontal");
 		}).toThrow("too close to another ship");
 	});
 
 	test("ship are too close", () => {
 		expect(() => {
-			gameboard.placeShip(0, 44, "horizontal");
+			gameboard.placeShip(7, 35, "horizontal");
 		}).toThrow("too close to another ship");
 	});
 
 	test("ship are too close", () => {
 		expect(() => {
-			gameboard.placeShip(0, 45, "horizontal");
+			gameboard.placeShip(7, 36, "horizontal");
 		}).toThrow("too close to another ship");
 	});
 
 	test("ship are too close", () => {
 		expect(() => {
-			gameboard.placeShip(0, 46, "horizontal");
+			gameboard.placeShip(7, 37, "horizontal");
 		}).toThrow("too close to another ship");
 	});
 
 	test("ship are too close", () => {
 		expect(() => {
-			gameboard.placeShip(0, 54, "horizontal");
+			gameboard.placeShip(4, 44, "horizontal");
 		}).toThrow("too close to another ship");
 	});
 
 	test("ship are too close", () => {
 		expect(() => {
-			gameboard.placeShip(0, 55, "horizontal");
+			gameboard.placeShip(4, 45, "horizontal");
 		}).toThrow("too close to another ship");
 	});
 
 	test("ship are too close", () => {
 		expect(() => {
-			gameboard.placeShip(0, 56, "horizontal");
+			gameboard.placeShip(4, 46, "horizontal");
+		}).toThrow("too close to another ship");
+	});
+
+	test("ship are too close", () => {
+		expect(() => {
+			gameboard.placeShip(4, 54, "horizontal");
+		}).toThrow("too close to another ship");
+	});
+
+	test("ship are too close", () => {
+		expect(() => {
+			gameboard.placeShip(4, 55, "horizontal");
+		}).toThrow("too close to another ship");
+	});
+
+	test("ship are too close", () => {
+		expect(() => {
+			gameboard.placeShip(4, 56, "horizontal");
+		}).toThrow("too close to another ship");
+	});
+
+	test("ship are too close", () => {
+		expect(() => {
+			gameboard.placeShip(7, 14, "vertical");
 		}).toThrow("too close to another ship");
 	});
 });

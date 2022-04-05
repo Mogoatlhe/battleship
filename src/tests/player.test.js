@@ -87,3 +87,9 @@ describe("receive attack", () => {
 		);
 	});
 });
+
+describe("randomise ship placement", () => {
+	test("randomise ship placement", () => {
+		expect(player1.randomiseShipPlacement());
+	});
+});
