@@ -6,6 +6,8 @@ let player2;
 beforeAll(() => {
 	player1 = Player("player1");
 	player2 = Player("player2");
+
+	player2.placeShip(0, 0, "horizontal");
 });
 
 describe("place ships", () => {
@@ -85,6 +87,52 @@ describe("receive attack", () => {
 		expect(() => player1.receiveAttack(100)).toThrow(
 			"coordinate value must be between 0 and 99, inclusive"
 		);
+	});
+});
+
+describe("attack", () => {
+	test("attack: coordinate is not a number", () => {
+		expect(() => player1.attack(player2, null)).toThrow(
+			"coordinate value must be a number"
+		);
+	});
+
+	test("attack: coordinate is out of range", () => {
+		expect(() => player1.attack(player2, -1)).toThrow(
+			"coordinate value must be between 0 and 99, inclusive"
+		);
+	});
+
+	test("attack: coordinate is out of range", () => {
+		expect(() => player1.attack(player2, 100)).toThrow(
+			"coordinate value must be between 0 and 99, inclusive"
+		);
+	});
+
+	test("attack: enemy is not an object", () => {
+		expect(() => player1.attack(null, 99)).toThrow(
+			"enemy value must be of type 'object'"
+		);
+	});
+
+	test("attack: enemy is not an object", () => {
+		expect(() => player1.attack(undefined, 99)).toThrow(
+			"enemy value must be of type 'object'"
+		);
+	});
+
+	test("attack: enemy is not an object", () => {
+		expect(() => player1.attack({}, 99)).toThrow(
+			"enemy must be an object of type 'Player'"
+		);
+	});
+
+	test("attack: miss an enemy", () => {
+		expect(player1.attack(player2, 99)).toBe(false);
+	});
+
+	test("attack: miss an enemy", () => {
+		expect(player1.attack(player2, 0)).toBe(true);
 	});
 });
 

@@ -159,8 +159,9 @@ export default () => {
 			const { direction } = placedShip.getCoordinates;
 			const length = placedShip.getShipLength();
 			const placedShipPos = getPositions(starting, direction, length);
+
 			hitPosition = placedShipPos.findIndex((pos) => pos === coordinate);
-			return hitPosition === undefined ? undefined : placedShipPos[hitPosition];
+			return hitPosition === -1 ? undefined : placedShip;
 		});
 
 		attackAttempts.push(coordinate);

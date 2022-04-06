@@ -57,9 +57,7 @@ export default (name) => {
 		}
 	};
 
-	const attack = (enemy, coordinate) => enemy.receiveAttack(coordinate);
-
-	const receiveAttack = (coordinate) => {
+	const validateCoordinate = (coordinate) => {
 		if (typeof coordinate !== "number") {
 			throw new Error("coordinate value must be a number");
 		}
@@ -69,11 +67,32 @@ export default (name) => {
 		}
 	};
 
+	const attack = (enemy, coordinate) => {
+		validateCoordinate(coordinate);
+
+		if (enemy === null || typeof enemy !== "object") {
+			throw new Error("enemy value must be of type 'object'");
+		}
+
+		if (typeof enemy.getShips !== "function") {
+			throw new Error("enemy must be an object of type 'Player'");
+		}
+
+		return enemy.receiveAttack(coordinate);
+	};
+
+	const receiveAttack = (coordinate) => {
+		validateCoordinate(coordinate);
+
+		return gameboard.receiveAttack(coordinate);
+	};
+
 	return {
 		getName,
 		receiveAttack,
 		placeShip,
 		randomiseShipPlacement,
 		getShips,
+		attack,
 	};
 };
