@@ -8,6 +8,7 @@ beforeAll(() => {
 	player2 = Player("player2");
 
 	player2.placeShip(0, 0, "horizontal");
+	player2.placeShip(1, 29, "horizontal");
 });
 
 describe("place ships", () => {
@@ -87,6 +88,14 @@ describe("receive attack", () => {
 		expect(() => player1.receiveAttack(100)).toThrow(
 			"coordinate value must be between 0 and 99, inclusive"
 		);
+	});
+
+	test("receive attack: miss", () => {
+		expect(player2.receiveAttack(98)).toBe(false);
+	});
+
+	test("receive attack: hit", () => {
+		expect(player2.receiveAttack(29)).toBe(true);
 	});
 });
 
