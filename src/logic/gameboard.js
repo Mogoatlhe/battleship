@@ -25,22 +25,6 @@ export default () => {
 
 	const getShips = () => ships;
 
-	const getPositions = (first, direction, length) => {
-		const positions = [first];
-
-		if (direction === "horizontal") {
-			for (let i = 1; i < length; i += 1) {
-				positions.push(positions[i - 1] + 1);
-			}
-		} else {
-			for (let i = 1; i < length; i += 1) {
-				positions.push(positions[i - 1] + 10);
-			}
-		}
-
-		return positions;
-	};
-
 	const isClose = (currShipPositions, newShipPos) =>
 		currShipPositions.some((currShipPos) => {
 			let positionStart = currShipPos - 11;
@@ -66,12 +50,10 @@ export default () => {
 
 	const compareShips = (tempShips, positions) => {
 		tempShips.forEach((currShip) => {
-			const currShipLength = currShip.getShipLength();
 			const coordinates = currShip.getCoordinates();
-			const currShipPositions = getPositions(
+			const currShipPositions = currShip.getPositions(
 				coordinates.coordinate,
-				coordinates.direction,
-				currShipLength
+				coordinates.direction
 			);
 
 			positions.forEach((newShipPos) => {
@@ -126,7 +108,7 @@ export default () => {
 			throw new Error("ship is out of bounds");
 		}
 
-		const positions = getPositions(starting, direction, length);
+		const positions = ship.getPositions(starting, direction);
 
 		const tempShips = ships.filter(
 			(currShip) => currShip.getCoordinates() !== undefined
@@ -156,9 +138,8 @@ export default () => {
 		let hitPosition;
 		const attackedShip = placedShips.find((placedShip) => {
 			const starting = placedShip.getCoordinates().coordinate;
-			const { direction } = placedShip.getCoordinates;
-			const length = placedShip.getShipLength();
-			const placedShipPos = getPositions(starting, direction, length);
+			const { direction } = placedShip.getCoordinates();
+			const placedShipPos = placedShip.getPositions(starting, direction);
 
 			hitPosition = placedShipPos.findIndex((pos) => pos === coordinate);
 			return hitPosition === -1 ? undefined : placedShip;

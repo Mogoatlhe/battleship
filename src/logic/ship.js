@@ -65,5 +65,28 @@ export default (length) => {
 
 	const getCoordinates = () => coordinates;
 
-	return { getShipLength, hitShip, isSunk, setCoordinates, getCoordinates };
+	const getPositions = (coordinate, direction) => {
+		const positions = [coordinate];
+
+		if (direction === "horizontal") {
+			for (let i = 1; i < length; i += 1) {
+				positions.push(positions[i - 1] + 1);
+			}
+		} else {
+			for (let i = 1; i < length; i += 1) {
+				positions.push(positions[i - 1] + 10);
+			}
+		}
+
+		return positions;
+	};
+
+	return {
+		getShipLength,
+		hitShip,
+		isSunk,
+		setCoordinates,
+		getCoordinates,
+		getPositions,
+	};
 };
