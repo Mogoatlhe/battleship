@@ -1,6 +1,7 @@
 import Gameboard from "./gameboard";
 
 export default (name) => {
+	const pastAttempts = [];
 	const gameboard = Gameboard();
 	const getName = () => name;
 
@@ -43,11 +44,44 @@ export default (name) => {
 				(ship) => ship.getCoordinates() === undefined
 			);
 
+			let exists = false;
+			let starting = 0;
+			let directionsIndex = 0;
 			const directions = ["horizontal", "vertical"];
-			const starting = Math.floor(Math.random() * 100);
-			const directionsIndex = Math.floor(Math.random() * 100);
+
+			do {
+				starting = Math.floor(Math.random() * 100);
+				directionsIndex = Math.floor(Math.random() * 2);
+
+				if (pastAttempts.length === 0) {
+					break;
+				}
+				// eslint-disable-next-line no-loop-func
+				exists = pastAttempts.some((attempt) => {
+					const { coordinate } = attempt;
+					const { direction } = attempt;
+					const { length } = attempt;
+
+					if (
+						coordinate === starting &&
+						direction === directions[directionsIndex] &&
+						length >= ships[index].getShipLength()
+					) {
+						return true;
+					}
+
+					return false;
+				});
+			} while (exists);
 
 			placeShip(index, starting, directions[directionsIndex]);
+			pastAttempts.push([
+				{
+					coordinate: starting,
+					direction: directions[directionsIndex],
+					length: ships[index].getShipLength(),
+				},
+			]);
 
 			if (ships.some((ship) => ship.getCoordinates() === undefined)) {
 				randomiseShipPlacement();

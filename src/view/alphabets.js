@@ -5,12 +5,10 @@ export default () => {
 
 		[...alphabets].forEach((alphabet) => {
 			alphaCoords.forEach((alphaCoord) => {
-				const alphaDiv = document.createElement("div");
 				const alphaText = document.createElement("p");
 
 				alphaText.textContent = alphaCoord;
-				alphaDiv.append(alphaText);
-				alphabet.append(alphaDiv);
+				alphabet.append(alphaText);
 			});
 		});
 	};
