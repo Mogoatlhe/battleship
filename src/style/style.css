@@ -168,3 +168,11 @@ i{
 	background-image: url("../images/gifs/cloud.gif");
 	background-size: cover;;
 }
+
+.done{
+	filter: blur(12px);
+}
+
+.done:hover{
+	cursor: not-allowed;
+}

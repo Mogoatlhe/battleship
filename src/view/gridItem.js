@@ -94,6 +94,12 @@ export default (index, me, enemy) => {
 	const onClick = () => {
 		const enemyShips = enemy.getShips();
 
+		const done = document.querySelector(".done");
+
+		if (done === undefined) {
+			return;
+		}
+
 		[...childNodes].forEach((child) => {
 			child.addEventListener("click", () => {
 				const id = Number(child.dataset.id);
@@ -107,6 +113,11 @@ export default (index, me, enemy) => {
 						const enemyShip = enemyShips[enemyShipPos];
 						surrondShip(enemyShip);
 						enemyShips.splice(enemyShipPos, 1);
+
+						if (enemyShips.length === 0) {
+							const items = document.querySelectorAll(".grid-container > *");
+							[...items].forEach((item) => item.classList.add("done"));
+						}
 					}
 				} else {
 					child.classList.add("miss");
