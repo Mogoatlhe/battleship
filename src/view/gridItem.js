@@ -33,6 +33,59 @@ export default (index, me, enemy) => {
 		}
 	};
 
+	const surrondShip = (ship) => {
+		const { coordinate } = ship.getCoordinates();
+		const { direction } = ship.getCoordinates();
+		const positions = ship.getPositions(coordinate, direction);
+		const { length } = positions;
+		let end = length + 2;
+		let start = coordinate - 11;
+		let y = 3;
+
+		if (coordinate.toString().includes("0")) {
+			start = coordinate - 10;
+			y = 2;
+			end -= 1;
+		}
+
+		start = start < 0 ? start + 10 : start;
+
+		if (direction === "horizontal")
+			for (let i = 0; i < 3; i += 1) {
+				for (let j = start; j < 100 && j < start + end; j += 1) {
+					if (j < 0 || childNodes[j].classList.contains("hit")) {
+						// eslint-disable-next-line no-continue
+						continue;
+					}
+
+					childNodes[j].classList.add("miss");
+
+					if (j < 90 && j.toString().includes("9")) {
+						break;
+					}
+				}
+				start += 10;
+			}
+		else {
+			if (coordinate.toString().includes("9")) {
+				y = 2;
+			}
+
+			const x = coordinate.toString().length > 1 ? 2 : 1;
+			for (let i = 0; i < y; i += 1) {
+				for (let j = start; j < 100 && j < start + 10 * (length + x); j += 10) {
+					if (j < 0 || childNodes[j].classList.contains("hit")) {
+						// eslint-disable-next-line no-continue
+						continue;
+					}
+
+					childNodes[j].classList.add("miss");
+				}
+				start += 1;
+			}
+		}
+	};
+
 	const onClick = () => {
 		const enemyShips = enemy.getShips();
 
@@ -46,8 +99,9 @@ export default (index, me, enemy) => {
 					);
 
 					if (enemyShipPos !== -1) {
+						const enemyShip = enemyShips[enemyShipPos];
+						surrondShip(enemyShip);
 						enemyShips.splice(enemyShipPos, 1);
-						alert();
 					}
 				} else {
 					child.classList.add("miss");
