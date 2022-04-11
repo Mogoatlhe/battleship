@@ -49,11 +49,16 @@ export default (index, me, enemy) => {
 		}
 
 		start = start < 0 ? start + 10 : start;
+		const imax = coordinate.toString().length < 2 ? 2 : 3;
 
 		if (direction === "horizontal")
-			for (let i = 0; i < 3; i += 1) {
+			for (let i = 0; i < imax; i += 1) {
 				for (let j = start; j < 100 && j < start + end; j += 1) {
-					if (j < 0 || childNodes[j].classList.contains("hit")) {
+					if (
+						j < 0 ||
+						childNodes[j].classList.contains("hit") ||
+						(coordinate > 1 && j.toString().includes("0"))
+					) {
 						// eslint-disable-next-line no-continue
 						continue;
 					}
