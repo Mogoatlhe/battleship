@@ -12,18 +12,21 @@ const computer = Player("computer");
 const alphabets = Alphabets();
 const numbers = Numbers();
 const playerHeading = PlayerHeading();
-// const p1Grid = GridItem();
-const p2grid = GridItem(0, human, computer);
+const p1Grid = GridItem(0, computer, human);
+const p2Grid = GridItem(1, human, computer);
 
 alphabets.appendAlphabets();
 playerHeading.setPlayerName(human.getName(), 0);
 playerHeading.setPlayerName(computer.getName(), 1);
 numbers.appendNumbers();
-p2grid.appendGridItems();
+
+p1Grid.appendGridItems(0);
+p2Grid.appendGridItems(1);
 
 try {
 	computer.randomiseShipPlacement();
-	p2grid.placeShips();
+	// p1Grid.placeShips();
+	p2Grid.placeShips();
 } catch (e) {
 	console.log(e);
 }

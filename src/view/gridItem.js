@@ -94,12 +94,6 @@ export default (index, me, enemy) => {
 	const onClick = () => {
 		const enemyShips = enemy.getShips();
 
-		const done = document.querySelector(".done");
-
-		if (done === undefined) {
-			return;
-		}
-
 		[...childNodes].forEach((child) => {
 			child.addEventListener("click", () => {
 				const id = Number(child.dataset.id);
@@ -115,7 +109,9 @@ export default (index, me, enemy) => {
 						enemyShips.splice(enemyShipPos, 1);
 
 						if (enemyShips.length === 0) {
-							const items = document.querySelectorAll(".grid-container > *");
+							const searchItem = index === 0 ? "your-fleet" : "opponent-fleet";
+							const fleet = document.getElementById(searchItem);
+							const items = fleet.querySelectorAll(".grid-container > *");
 							[...items].forEach((item) => item.classList.add("done"));
 						}
 					}
@@ -127,12 +123,12 @@ export default (index, me, enemy) => {
 		});
 	};
 
-	const appendGridItems = () => {
+	const appendGridItems = (gridIndex) => {
 		for (let i = 0; i < 100; i += 1) {
 			const item = document.createElement("div");
 			item.setAttribute("data-id", i);
 
-			gridContainer[0].append(item);
+			gridContainer[gridIndex].append(item);
 		}
 		onClick();
 	};
