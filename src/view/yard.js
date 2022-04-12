@@ -12,6 +12,8 @@ export default (ships) => {
 				shipContainer.append(shipPart);
 			}
 
+			shipContainer.setAttribute("draggable", "true");
+			shipContainer.addEventListener("dragstart", () => {});
 			container.append(shipContainer);
 		});
 	};

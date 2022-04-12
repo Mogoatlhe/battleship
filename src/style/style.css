@@ -217,6 +217,11 @@ i{
 	height: fit-content;
 }
 
+.shipyard .ships-container .ship-container:hover {
+	cursor: move;
+	cursor: grab;
+}
+
 .ship-part{
 	width: 30px;
 	height: 30px;
