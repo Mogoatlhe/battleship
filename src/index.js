@@ -5,6 +5,7 @@ import Alphabets from "./view/alphabets";
 import PlayerHeading from "./view/playerHeading";
 import Numbers from "./view/numbers";
 import GridItem from "./view/gridItem";
+import Yard from "./view/yard";
 
 const human = Player("human");
 const computer = Player("computer");
@@ -25,6 +26,7 @@ p2Grid.appendGridItems(1);
 
 try {
 	computer.randomiseShipPlacement();
+	const yard = Yard(computer.getShips());
 	// p1Grid.placeShips();
 	p2Grid.placeShips();
 } catch (e) {
