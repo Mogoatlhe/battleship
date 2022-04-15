@@ -9,11 +9,27 @@ export default (ships) => {
 				const shipPart = document.createElement("div");
 				shipPart.classList.add("ship-part");
 
+				shipPart.addEventListener("mousedown", () => {
+					const clicked = document.querySelector(".clicked");
+
+					if (clicked !== null) {
+						clicked.classList.remove("clicked");
+					}
+
+					shipPart.classList.add("clicked");
+				});
+
 				shipContainer.append(shipPart);
 			}
 
 			shipContainer.setAttribute("draggable", "true");
-			shipContainer.addEventListener("dragstart", () => {});
+
+			shipContainer.addEventListener("dragstart", () => {
+				shipContainer.classList.add("dragging");
+			});
+			shipContainer.addEventListener("dragend", () => {
+				shipContainer.classList.remove("dragging");
+			});
 			container.append(shipContainer);
 		});
 	};

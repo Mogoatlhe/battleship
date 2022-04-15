@@ -94,6 +94,69 @@ export default (index, me, enemy) => {
 	const onClick = () => {
 		const enemyShips = enemy.getShips();
 
+		document.addEventListener("dragover", (e) => {
+			e.preventDefault();
+			const dragging = document.querySelector(".dragging");
+			const length = dragging.childNodes.length - 1;
+			const dragChildIndex = [...dragging.childNodes].findIndex((dragChild) =>
+				dragChild.classList.contains("clicked")
+			);
+
+			const dataID = e.target.getAttribute("data-id");
+			if (dataID === null || dataID === "") {
+				[...dragging.childNodes].forEach((c) => c.removeAttribute("data-id"));
+				return;
+			}
+
+			const id = dataID;
+
+			const starting = id - dragChildIndex;
+			const dragLength = starting + length;
+
+			if (
+				(starting.toString().length === 2 &&
+					starting.toString()[0] === dragLength.toString()[0]) ||
+				(starting.toString().length === 1 && dragLength < 10)
+			) {
+				[...dragging.childNodes].forEach((dChild, i) => {
+					// eslint-disable-next-line no-param-reassign
+					dChild.dataset.id = i + starting;
+				});
+			}
+		});
+
+		document.addEventListener("drop", (e) => {
+			e.preventDefault();
+			const dragging = document.querySelector(".dragging");
+			const dragChildren = dragging.childNodes;
+			const hasId = [...dragChildren].every((dragChild) =>
+				dragChild.hasAttribute("data-id")
+			);
+
+			if (!hasId) {
+				return;
+			}
+
+			const { length } = dragChildren;
+			const startId = Number(dragChildren[0].dataset.id);
+			const prevSquare = document.querySelector(
+				`div[data-id="${startId - 1}"]:not(.ship-part)`
+			);
+
+			for (let i = startId; i < length + startId; i += 1) {
+				const square = document.querySelector(
+					`div[data-id="${i}"]:not(.ship-part)`
+				);
+
+				const yourFleetGrid = document.querySelector(
+					"#your-fleet .numbers-grid-container .grid-container"
+				);
+				yourFleetGrid.removeChild(square);
+			}
+
+			prevSquare.after(dragging);
+		});
+
 		[...childNodes].forEach((child) => {
 			child.addEventListener("click", () => {
 				const id = Number(child.dataset.id);
