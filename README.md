@@ -28,7 +28,7 @@ https://mogoatlhe.github.io/battleship - Not yet live
 
 ## Design
 
-![](srcimages/design.png)
+![](src/images/design.png)
 
 ## Lessons Learnt / Challenges Faced
 
