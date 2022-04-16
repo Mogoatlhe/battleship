@@ -101,9 +101,12 @@ export default (index, me, enemy) => {
 			const dragChildIndex = [...dragging.childNodes].findIndex((dragChild) =>
 				dragChild.classList.contains("clicked")
 			);
+			const draggingParent = dragging.parentNode;
+			const isGridContainer =
+				draggingParent.classList.contains("grid-container");
 
 			const dataID = e.target.getAttribute("data-id");
-			if (dataID === null || dataID === "") {
+			if (!isGridContainer && (dataID === null || dataID === "")) {
 				[...dragging.childNodes].forEach((c) => c.removeAttribute("data-id"));
 				return;
 			}
