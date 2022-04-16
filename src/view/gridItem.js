@@ -133,7 +133,7 @@ export default (index, me, enemy) => {
 				dragChild.hasAttribute("data-id")
 			);
 
-			if (!hasId) {
+			if (!hasId || index === 1) {
 				return;
 			}
 
