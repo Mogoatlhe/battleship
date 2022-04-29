@@ -27,6 +27,7 @@ export default (ships) => {
 			shipContainer.addEventListener("dragstart", () => {
 				shipContainer.classList.add("dragging");
 			});
+
 			shipContainer.addEventListener("dragend", () => {
 				shipContainer.classList.remove("dragging");
 			});
