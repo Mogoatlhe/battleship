@@ -1,5 +1,17 @@
 export default (ships) => {
-	const placeShipsInYard = (container) => {
+	const makeDraggable = (shipContainer) => {
+		shipContainer.setAttribute("draggable", "true");
+
+		shipContainer.addEventListener("dragstart", () => {
+			shipContainer.classList.add("dragging");
+		});
+
+		shipContainer.addEventListener("dragend", () => {
+			shipContainer.classList.remove("dragging");
+		});
+	};
+
+	const placeShipsInYard = (container, className) => {
 		ships.forEach((ship) => {
 			const length = ship.getShipLength();
 			const shipContainer = document.createElement("div");
@@ -22,15 +34,10 @@ export default (ships) => {
 				shipContainer.append(shipPart);
 			}
 
-			shipContainer.setAttribute("draggable", "true");
+			if (className === "shipyard") {
+				makeDraggable(shipContainer);
+			}
 
-			shipContainer.addEventListener("dragstart", () => {
-				shipContainer.classList.add("dragging");
-			});
-
-			shipContainer.addEventListener("dragend", () => {
-				shipContainer.classList.remove("dragging");
-			});
 			container.append(shipContainer);
 		});
 	};
@@ -45,7 +52,7 @@ export default (ships) => {
 			const yardName = document.createElement("p");
 			const shipsContainer = document.createElement("div");
 
-			placeShipsInYard(shipsContainer);
+			placeShipsInYard(shipsContainer, className);
 
 			yardName.textContent = className;
 
