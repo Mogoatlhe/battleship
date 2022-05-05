@@ -2,6 +2,17 @@ export default (index, me, enemy) => {
 	const gridContainer = document.getElementsByClassName("grid-container");
 	const container = gridContainer[index];
 	const { childNodes } = container;
+
+	const resetId = (shipContainer) => {
+		const prevSibling = shipContainer.previousSibling;
+		const startId = Number(prevSibling.dataset.id) + 1;
+		const { length } = shipContainer.childNodes;
+
+		for (let i = startId, pos = 0; i < startId + length; i += 1, pos += 1) {
+			shipContainer.childNodes[pos].setAttribute("data-id", i);
+		}
+	};
+
 	const addSquares = (shipContainer) => {
 		const prevSibling = shipContainer.previousSibling;
 
@@ -130,6 +141,7 @@ export default (index, me, enemy) => {
 				index === 1 ||
 				!e.target.parentNode.classList.contains("grid-container")
 			) {
+				resetId(dragging);
 				return;
 			}
 
