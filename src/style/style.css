@@ -193,6 +193,10 @@ i{
 	align-items: center;
 }
 
+#your-fleet .grid-container div:hover{
+	cursor: default;
+}
+
 .yard-text{
 	/* transform: rotate(270deg); */
 	color: var(--mid-grey);

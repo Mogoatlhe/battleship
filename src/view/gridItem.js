@@ -161,7 +161,17 @@ export default (index, me, enemy) => {
 		const enemyShips = enemy.getShips();
 
 		[...childNodes].forEach((child) => {
-			child.addEventListener("click", () => {
+			child.addEventListener("click", (e) => {
+				let isHumanGrid = false;
+
+				if (Number(index) === 0 && e.isTrusted) {
+					isHumanGrid = true;
+				}
+
+				if (isHumanGrid) {
+					return;
+				}
+
 				const id = Number(child.dataset.id);
 				if (me.attack(enemy, Number(id))) {
 					child.classList.add("hit");
