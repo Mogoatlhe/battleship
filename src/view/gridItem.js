@@ -3,17 +3,18 @@ export default (index, me, enemy) => {
 	const container = gridContainer[index];
 	const { childNodes } = container;
 	const addSquares = (shipContainer) => {
-		const startId = Number(shipContainer.childNodes[0].dataset.id);
+		const prevSibling = shipContainer.previousSibling;
+
 		if (
-			!shipContainer.classList.contains("ship-container") ||
-			startId === null ||
-			startId === ""
+			shipContainer.parentNode.parentNode.classList.contains("shipyard") ||
+			prevSibling === null
 		) {
 			return;
 		}
 
+		let prevId = Number(prevSibling.dataset.id);
+		const startId = prevId + 1;
 		const { length } = shipContainer.childNodes;
-		let prevId = startId - 1;
 
 		for (let i = startId; i < length + startId; i += 1, prevId += 1) {
 			const prevSquare = document.querySelector(
@@ -132,13 +133,15 @@ export default (index, me, enemy) => {
 				return;
 			}
 
+			addSquares(dragging);
+
 			const { length } = dragChildren;
 			const startId = Number(dragChildren[0].dataset.id);
 			const prevSquare = document.querySelector(
-				`div[data-id="${startId - 1}"]:not(.ship-part)`
+				`div[data-id="${startId - 1}"]`
 			);
 
-			addSquares(dragging);
+			// removes squares to be replaced by the "dropping ship"
 			for (let i = startId; i < length + startId; i += 1) {
 				const square = document.querySelector(
 					`div[data-id="${i}"]:not(.ship-part)`
