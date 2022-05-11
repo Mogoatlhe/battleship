@@ -127,6 +127,23 @@ export default (index, me, enemy) => {
 		}
 	};
 
+	const isPartialOverlap = (dragging) => {
+		if (!dragging.classList.contains("dragging")) {
+			return false;
+		}
+
+		const prevId = Number(dragging.previousSibling.dataset.id);
+
+		// doesn't work
+		if (prevId + 1 === dragging.childNodes[0].dataset.id) {
+			return false;
+		}
+
+		// set the id of dragging childNodes
+
+		return true;
+	};
+
 	const drop = () => {
 		document.addEventListener("drop", (e) => {
 			e.preventDefault();
@@ -135,11 +152,12 @@ export default (index, me, enemy) => {
 			const hasId = [...dragChildren].every((dragChild) =>
 				dragChild.hasAttribute("data-id")
 			);
+			const isOverlap = isPartialOverlap(e.target.parentNode);
 
 			if (
 				!hasId ||
 				index === 1 ||
-				!e.target.parentNode.classList.contains("grid-container")
+				!(e.target.parentNode.classList.contains("grid-container") || isOverlap)
 			) {
 				resetId(dragging);
 				return;
