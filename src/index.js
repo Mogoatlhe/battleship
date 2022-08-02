@@ -16,7 +16,7 @@ const numbers = Numbers();
 const playerHeading = PlayerHeading();
 const p1Grid = GridItem(0, computer, human);
 const p2Grid = GridItem(1, human, computer);
-const dragover = Dragover();
+Dragover();
 
 alphabets.appendAlphabets();
 playerHeading.setPlayerName(human.getName(), 0);
