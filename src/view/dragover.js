@@ -26,6 +26,24 @@ export default () => {
 		return true;
 	};
 
+	const removeLandingIndicator = () => {
+		const landingIndicators = document.querySelectorAll(".landing-indicator");
+		[...landingIndicators].forEach((landingIndicator) => {
+			landingIndicator.classList.remove("landing-indicator");
+		});
+	};
+
+	const addLandingIndicator = (length) => {
+		removeLandingIndicator();
+
+		// works for horizontal ships.
+		for (let i = 0; i < length + 1; i += 1) {
+			document
+				.querySelector(`[data-id="${startingPos + i}"]`)
+				.classList.add("landing-indicator");
+		}
+	};
+
 	dragTarget.addEventListener("dragover", (e) => {
 		const dragging = document.querySelector(".dragging");
 		const length = dragging.childNodes.length - 1;
@@ -38,12 +56,19 @@ export default () => {
 		);
 
 		if (!isWholeShipInGrid) {
+			removeLandingIndicator();
 			return;
 		}
 
 		e.preventDefault();
+		addLandingIndicator(length);
 		[...dragging.childNodes].forEach((part, index) => {
 			part.setAttribute("data-id", startingPos + index);
 		});
+	});
+
+	dragTarget.addEventListener("dragleave", (e) => {
+		e.preventDefault();
+		removeLandingIndicator();
 	});
 };

@@ -243,3 +243,7 @@ i{
 	border: none;
 	background-color: red;
 }
+
+.landing-indicator{
+	background-color: lightgreen;
+}
