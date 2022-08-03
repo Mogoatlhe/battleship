@@ -144,46 +144,57 @@ export default (index, me, enemy) => {
 		return true;
 	};
 
+	const removeSquares = () => {
+		const landingIndicators = document.querySelectorAll(".landing-indicator");
+		const landingIndicatorParent = landingIndicators[0].parentNode;
+
+		[...landingIndicators].forEach((landingIndicator) => {
+			landingIndicatorParent.removeChild(landingIndicator);
+		});
+	};
+
 	const drop = () => {
 		document.addEventListener("drop", (e) => {
 			e.preventDefault();
+
+			removeSquares();
 			const dragging = document.querySelector(".dragging");
-			const dragChildren = dragging.childNodes;
-			const hasId = [...dragChildren].every((dragChild) =>
-				dragChild.hasAttribute("data-id")
-			);
-			const isOverlap = isPartialOverlap(e.target.parentNode);
+			// const dragChildren = dragging.childNodes;
+			// const hasId = [...dragChildren].every((dragChild) =>
+			// 	dragChild.hasAttribute("data-id")
+			// );
+			// const isOverlap = isPartialOverlap(e.target.parentNode);
 
-			if (
-				!hasId ||
-				index === 1 ||
-				!(e.target.parentNode.classList.contains("grid-container") || isOverlap)
-			) {
-				resetId(dragging);
-				return;
-			}
+			// if (
+			// 	!hasId ||
+			// 	index === 1 ||
+			// 	!(e.target.parentNode.classList.contains("grid-container") || isOverlap)
+			// ) {
+			// 	resetId(dragging);
+			// 	return;
+			// }
 
-			addSquares(dragging);
+			// addSquares(dragging);
 
-			const { length } = dragChildren;
-			const startId = Number(dragChildren[0].dataset.id);
-			const prevSquare = document.querySelector(
-				`div[data-id="${startId - 1}"]`
-			);
+			// const { length } = dragChildren;
+			// const startId = Number(dragChildren[0].dataset.id);
+			// const prevSquare = document.querySelector(
+			// 	`div[data-id="${startId - 1}"]`
+			// );
 
-			// removes squares to be replaced by the "dropping ship"
-			for (let i = startId; i < length + startId; i += 1) {
-				const square = document.querySelector(
-					`div[data-id="${i}"]:not(.ship-part)`
-				);
+			// // removes squares to be replaced by the "dropping ship"
+			// for (let i = startId; i < length + startId; i += 1) {
+			// 	const square = document.querySelector(
+			// 		`div[data-id="${i}"]:not(.ship-part)`
+			// 	);
 
-				const yourFleetGrid = document.querySelector(
-					"#your-fleet .numbers-grid-container .grid-container"
-				);
-				yourFleetGrid.removeChild(square);
-			}
+			// 	const yourFleetGrid = document.querySelector(
+			// 		"#your-fleet .numbers-grid-container .grid-container"
+			// 	);
+			// 	yourFleetGrid.removeChild(square);
+			// }
 
-			prevSquare.after(dragging);
+			// prevSquare.after(dragging);
 		});
 	};
 
