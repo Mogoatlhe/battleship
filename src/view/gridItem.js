@@ -39,7 +39,7 @@ export default (index, me, enemy) => {
 		}
 	};
 
-	const showSand = (id) => {
+	const showMiss = (id) => {
 		if (
 			childNodes[id - 10] !== undefined &&
 			childNodes[id - 10].classList.contains("miss")
@@ -194,16 +194,19 @@ export default (index, me, enemy) => {
 			child.addEventListener("click", (e) => {
 				let isHumanGrid = false;
 
+				// checks the click was by a human, or by a script
+				// isTrusted returns true if the click was by a human
 				if (Number(index) === 0 && e.isTrusted) {
 					isHumanGrid = true;
 				}
 
+				// prevents human from clicking on own grid.
 				if (isHumanGrid) {
 					return;
 				}
 
 				const id = Number(child.dataset.id);
-				if (me.attack(enemy, Number(id))) {
+				if (me.attack(enemy, id)) {
 					child.classList.add("hit");
 					const enemyShipPos = enemyShips.findIndex((enemyShip) =>
 						enemyShip.isSunk()
@@ -223,7 +226,7 @@ export default (index, me, enemy) => {
 					}
 				} else {
 					child.classList.add("miss");
-					showSand(id);
+					showMiss(id);
 				}
 			});
 		});
