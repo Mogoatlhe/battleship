@@ -1,4 +1,7 @@
 export default () => {
+	let startingPos;
+	let endingPos;
+
 	const dragTarget = document.querySelector("#your-fleet .grid-container");
 
 	const getClickedShipPart = (dragging) =>
@@ -7,8 +10,8 @@ export default () => {
 		);
 
 	const getIsWholeShipInGrid = (length, id, index) => {
-		const startingPos = id - index;
-		const endingPos = startingPos + length;
+		startingPos = id - index;
+		endingPos = startingPos + length;
 
 		if (
 			// horizontal. vertical??????
@@ -39,23 +42,8 @@ export default () => {
 		}
 
 		e.preventDefault();
-		// 	const draggingParent = dragging.parentNode;
-		// 	if (dataID === null || dataID === "") {
-		// 		[...dragging.childNodes].forEach((c) => c.removeAttribute("data-id"));
-		// 		return;
-		// 	}
-		// 	const id = dataID;
-		// 	const starting = id - dragChildIndex;
-		// 	const dragLength = starting + length;
-		// 	if (
-		// 		(starting.toString().length === 2 &&
-		// 			starting.toString()[0] === dragLength.toString()[0]) ||
-		// 		(starting.toString().length === 1 && dragLength < 10)
-		// 	) {
-		// 		[...dragging.childNodes].forEach((dChild, i) => {
-		// 			// eslint-disable-next-line no-param-reassign
-		// 			dChild.dataset.id = i + starting;
-		// 		});
-		// 	}
+		[...dragging.childNodes].forEach((part, index) => {
+			part.setAttribute("data-id", startingPos + index);
+		});
 	});
 };
