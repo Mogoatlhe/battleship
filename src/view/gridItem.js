@@ -144,10 +144,7 @@ export default (index, me, enemy) => {
 		return true;
 	};
 
-	const removeSquares = () => {
-		const landingIndicators = document.querySelectorAll(".landing-indicator");
-		const landingIndicatorParent = landingIndicators[0].parentNode;
-
+	const removeSquares = (landingIndicators, landingIndicatorParent) => {
 		[...landingIndicators].forEach((landingIndicator) => {
 			landingIndicatorParent.removeChild(landingIndicator);
 		});
@@ -157,19 +154,21 @@ export default (index, me, enemy) => {
 		document.addEventListener("drop", (e) => {
 			e.preventDefault();
 
-			removeSquares();
+			const landingIndicators = document.querySelectorAll(".landing-indicator");
+			const landingIndicatorParent = landingIndicators[0].parentNode;
 			const dragging = document.querySelector(".dragging");
+			const prevSquare = landingIndicators[0].previousSibling;
+			removeSquares(landingIndicators, landingIndicatorParent);
+
+			if (prevSquare !== null) {
+				prevSquare.after(dragging);
+			} else {
+				landingIndicatorParent.prepend(dragging);
+			}
 			// const dragChildren = dragging.childNodes;
-			// const hasId = [...dragChildren].every((dragChild) =>
-			// 	dragChild.hasAttribute("data-id")
-			// );
 			// const isOverlap = isPartialOverlap(e.target.parentNode);
 
-			// if (
-			// 	!hasId ||
-			// 	index === 1 ||
-			// 	!(e.target.parentNode.classList.contains("grid-container") || isOverlap)
-			// ) {
+			// if (isOverlap) {
 			// 	resetId(dragging);
 			// 	return;
 			// }
