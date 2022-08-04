@@ -1,3 +1,5 @@
+import Surround from "./surround";
+
 export default (index, me, enemy) => {
 	const gridContainer = document.getElementsByClassName("grid-container");
 	const container = gridContainer[index];
@@ -159,12 +161,15 @@ export default (index, me, enemy) => {
 			const dragging = document.querySelector(".dragging");
 			const prevSquare = landingIndicators[0].previousSibling;
 			removeSquares(landingIndicators, landingIndicatorParent);
+			const surround = Surround();
 
 			if (prevSquare !== null) {
 				prevSquare.after(dragging);
 			} else {
 				landingIndicatorParent.prepend(dragging);
 			}
+
+			surround.surroundShip(dragging);
 			// const dragChildren = dragging.childNodes;
 			// const isOverlap = isPartialOverlap(e.target.parentNode);
 

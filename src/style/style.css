@@ -247,3 +247,7 @@ i{
 .landing-indicator{
 	background-color: lightgreen;
 }
+
+[class^="surround"]{
+	background-color: yellow;
+}
