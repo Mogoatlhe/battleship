@@ -31,6 +31,30 @@ export default () => {
 		nextShipPart.classList.add(`surround-${currentShipPartId}`);
 	};
 
+	const doUpSurround = (currentShipPartId) => {
+		const upShipPartId = Number(currentShipPartId) - 10;
+		const upShipPart = document.querySelector(`[data-id="${upShipPartId}"]`);
+
+		if (upShipPart === null || upShipPart < 0) {
+			return;
+		}
+
+		upShipPart.classList.add(`surround-${currentShipPartId}`);
+	};
+
+	const doDownSurround = (currentShipPartId) => {
+		const downShipPartId = Number(currentShipPartId) + 10;
+		const downShipPart = document.querySelector(
+			`[data-id="${downShipPartId}"]`
+		);
+
+		if (downShipPart === null || downShipPart > 99) {
+			return;
+		}
+
+		downShipPart.classList.add(`surround-${currentShipPartId}`);
+	};
+
 	const surroundShip = (ship) => {
 		const shipParts = ship.childNodes;
 		const { length } = shipParts;
@@ -47,6 +71,9 @@ export default () => {
 			} else if (length - 1 === index) {
 				doRightSurround(shipPartId);
 			}
+
+			doUpSurround(shipPartId);
+			doDownSurround(shipPartId);
 		});
 	};
 
