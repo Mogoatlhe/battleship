@@ -75,9 +75,21 @@ describe("is sunk?", () => {
 		expect(validShip.isSunk()).toBe(true);
 	});
 
-	test("not sunk", () => {
-		let largerShip = Ship(4);
+	let largerShip = Ship(4);
+	test("not sunk: 1/4 hit", () => {
 		largerShip.hitShip(0);
 		expect(largerShip.isSunk()).toBe(false);
+	});
+	test("not sunk: 2/4 hit", () => {
+		largerShip.hitShip(1);
+		expect(largerShip.isSunk()).toBe(false);
+	});
+	test("not sunk: 3/4 hit", () => {
+		largerShip.hitShip(2);
+		expect(largerShip.isSunk()).toBe(false);
+	});
+	test("not sunk: 4/4 hit", () => {
+		largerShip.hitShip(3);
+		expect(largerShip.isSunk()).toBe(true);
 	});
 });
