@@ -1,6 +1,7 @@
 export default (length: number) => {
 	const ship: string[] = [];
 	let coordinates: any;
+	let hitCount = 0;
 
 	(() => {
 		if (length > 4 || length < 1) {
@@ -12,6 +13,7 @@ export default (length: number) => {
 		}
 	})();
 
+	/** retrieves the length of the ship */
 	const getShipLength = () => ship.length;
 
 	const hitShip = (position: number) => {
