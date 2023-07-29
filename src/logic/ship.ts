@@ -3,6 +3,7 @@ export default (length: number) => {
 	let coordinates: any;
 	let hitCount = 0;
 
+	/** initialises a ship of size { length } */
 	(() => {
 		if (length > 4 || length < 1) {
 			return;
@@ -17,17 +18,18 @@ export default (length: number) => {
 	const getShipLength = () => ship.length;
 
 	const hitShip = (position: number) => {
-		if (position < 0 || position > ship.length) {
-			return "miss: incorrect ship position";
+		if (position < 0 || position >= ship.length) {
+			throw new Error("miss: incorrect ship position");
 		}
 
 		if (ship[position] === "x") {
-			return "cannot hit the same position twice";
+			throw new Error("cannot hit the same position twice");
 		}
 
+		hitCount += 1;
 		ship[position] = "x";
 
-		return ship[position];
+		return isSunk();
 	};
 
 	const isSunk = () => {
