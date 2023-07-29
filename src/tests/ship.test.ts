@@ -1,32 +1,19 @@
 import Ship from "../logic/ship";
 
-let validShip;
-let invalidShip;
-let largerShip;
-let coordinates;
-
-beforeAll(() => {
-	invalidShip = Ship(0);
-	validShip = Ship(1);
-	largerShip = Ship(4);
-	largerShip.hitShip(0);
-	coordinates = {
-		coordinate: 99,
-		direction: "horizontal",
-	};
-});
-
 describe("ship creation", () => {
 	test("ship creation failure", () => {
+		let invalidShip = Ship(0);
 		expect(invalidShip.getShipLength()).toBe(0);
 	});
 
 	test("creates a ship", () => {
+		let validShip = Ship(1);
 		expect(validShip.getShipLength()).toBe(1);
 	});
 });
 
 describe("ship coordinates", () => {
+	let validShip = Ship(1);
 	test("set incorrect coordinates: negative coordinates", () => {
 		expect(validShip.setCoordinates(-1, "horizontal")).toBe(
 			"error: negative coordinates given"
@@ -54,30 +41,43 @@ describe("ship coordinates", () => {
 	});
 
 	test("get cordinates", () => {
+		let coordinates = {
+			coordinate: 99,
+			direction: "horizontal",
+		};
 		expect(validShip.getCoordinates()).toStrictEqual(coordinates);
 	});
 });
 
 describe("hitting a ship", () => {
+	let validShip = Ship(1);
 	test("attempting to hit a ship at incorrect position", () => {
-		expect(validShip.hitShip(2)).toBe("miss: incorrect ship position");
+		expect(() => {
+			validShip.hitShip(2);
+		}).toThrow("miss: incorrect ship position");
 	});
 
 	test("hitting a ship", () => {
-		expect(validShip.hitShip(0)).toBe("x");
+		expect(validShip.hitShip(0)).toBe(true);
 	});
 
 	test("hitting a ship where it has been hit", () => {
-		expect(validShip.hitShip(0)).toBe("cannot hit the same position twice");
+		expect(() => {
+			validShip.hitShip(0);
+		}).toThrow("cannot hit the same position twice");
 	});
 });
 
 describe("is sunk?", () => {
+	let validShip = Ship(1);
+	validShip.hitShip(0);
 	test("is sunk", () => {
 		expect(validShip.isSunk()).toBe(true);
 	});
 
 	test("not sunk", () => {
+		let largerShip = Ship(4);
+		largerShip.hitShip(0);
 		expect(largerShip.isSunk()).toBe(false);
 	});
 });
