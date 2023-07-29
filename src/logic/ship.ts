@@ -31,16 +31,7 @@ export default (length: number) => {
 	};
 
 	const isSunk = () => {
-		if (ship.length < 1) {
-			// throw;
-		}
-
-		const remainingPositions = ship.filter((curr) => curr !== "x");
-
-		if (remainingPositions.length > 0) {
-			return false;
-		}
-
+		if (hitCount < getShipLength()) return false;
 		return true;
 	};
 
