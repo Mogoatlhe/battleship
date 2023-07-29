@@ -1,7 +1,7 @@
 import Ship from "./ship";
 
 export default () => {
-	const createShipCollection = (length, amount) => {
+	const createShipCollection = (length: number, amount: number) => {
 		const ships = [];
 
 		for (let i = 0; i < amount; i += 1) {
@@ -11,7 +11,7 @@ export default () => {
 		return ships;
 	};
 
-	const attackAttempts = [];
+	const attackAttempts: number[] = [];
 	const missedPositions = [];
 	const lengthFourShip = Ship(4);
 	const lengthThreeShips = createShipCollection(3, 2);
@@ -25,7 +25,7 @@ export default () => {
 
 	const getShips = () => ships;
 
-	const isClose = (currShipPositions, newShipPos) =>
+	const isClose = (currShipPositions: number[], newShipPos: number) =>
 		currShipPositions.some((currShipPos) => {
 			let positionStart = currShipPos - 11;
 			let temp = 0;
@@ -48,7 +48,7 @@ export default () => {
 			return false;
 		});
 
-	const compareShips = (tempShips, positions) => {
+	const compareShips = (tempShips: any[], positions: number[]) => {
 		tempShips.forEach((currShip) => {
 			const coordinates = currShip.getCoordinates();
 			const currShipPositions = currShip.getPositions(
@@ -66,7 +66,7 @@ export default () => {
 		});
 	};
 
-	const placeShip = (index, starting, direction) => {
+	const placeShip = (index: number, starting: number, direction: string) => {
 		if (typeof index !== "number") {
 			throw new Error("index must be a number");
 		}
@@ -118,7 +118,7 @@ export default () => {
 		ship.setCoordinates(starting, direction);
 	};
 
-	const receiveAttack = (coordinate) => {
+	const receiveAttack = (coordinate: number) => {
 		if (typeof coordinate !== "number") {
 			throw new Error("coordinate value must be a number");
 		}

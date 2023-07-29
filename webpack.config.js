@@ -18,7 +18,7 @@ module.exports = {
 				type: "asset/resource",
 			},
 			{
-				test: /\.m?js$/,
+				test: /\.m?js|ts$/,
 				exclude: /node_modules/,
 				use: "ts-loader",
 			},

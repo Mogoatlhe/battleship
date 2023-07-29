@@ -1,13 +1,13 @@
 import Gameboard from "./gameboard";
 
-export default (name) => {
-	const pastAttempts = [];
+export default (name: string) => {
+	// const pastAttempts = [];
 	const gameboard = Gameboard();
 	const getName = () => name;
 
 	const getShips = () => gameboard.getShips();
 
-	const placeShip = (index, starting, direction) => {
+	const placeShip = (index: number, starting: number, direction: string) => {
 		if (typeof index !== "number") {
 			throw new Error("index must be a number");
 		}
@@ -49,39 +49,39 @@ export default (name) => {
 			let directionsIndex = 0;
 			const directions = ["horizontal", "vertical"];
 
-			do {
-				starting = Math.floor(Math.random() * 100);
-				directionsIndex = Math.floor(Math.random() * 2);
+			// do {
+			// 	starting = Math.floor(Math.random() * 100);
+			// 	directionsIndex = Math.floor(Math.random() * 2);
 
-				if (pastAttempts.length === 0) {
-					break;
-				}
-				// eslint-disable-next-line no-loop-func
-				exists = pastAttempts.some((attempt) => {
-					const { coordinate } = attempt;
-					const { direction } = attempt;
-					const { length } = attempt;
+			// 	// if (pastAttempts.length === 0) {
+			// 	// 	break;
+			// 	// }
 
-					if (
-						coordinate === starting &&
-						direction === directions[directionsIndex] &&
-						length >= ships[index].getShipLength()
-					) {
-						return true;
-					}
+			// 	// exists = pastAttempts.some((attempt) => {
+			// 	// 	const { coordinate } = attempt;
+			// 	// 	const { direction } = attempt;
+			// 	// 	const { length } = attempt;
 
-					return false;
-				});
-			} while (exists);
+			// 	// 	if (
+			// 	// 		coordinate === starting &&
+			// 	// 		direction === directions[directionsIndex] &&
+			// 	// 		length >= ships[index].getShipLength()
+			// 	// 	) {
+			// 	// 		return true;
+			// 	// 	}
+
+			// 	// 	return false;
+			// 	// });
+			// } while (exists);
 
 			placeShip(index, starting, directions[directionsIndex]);
-			pastAttempts.push([
-				{
-					coordinate: starting,
-					direction: directions[directionsIndex],
-					length: ships[index].getShipLength(),
-				},
-			]);
+			// pastAttempts.push([
+			// 	{
+			// 		coordinate: starting,
+			// 		direction: directions[directionsIndex],
+			// 		length: ships[index].getShipLength(),
+			// 	},
+			// ]);
 
 			if (ships.some((ship) => ship.getCoordinates() === undefined)) {
 				randomiseShipPlacement();
@@ -91,7 +91,7 @@ export default (name) => {
 		}
 	};
 
-	const validateCoordinate = (coordinate) => {
+	const validateCoordinate = (coordinate: number) => {
 		if (typeof coordinate !== "number") {
 			throw new Error("coordinate value must be a number");
 		}
@@ -101,21 +101,21 @@ export default (name) => {
 		}
 	};
 
-	const attack = (enemy, coordinate) => {
-		validateCoordinate(coordinate);
+	// const attack = (enemy, coordinate: number) => {
+	// 	validateCoordinate(coordinate);
 
-		if (enemy === null || typeof enemy !== "object") {
-			throw new Error("enemy value must be of type 'object'");
-		}
+	// 	if (enemy === null || typeof enemy !== "object") {
+	// 		throw new Error("enemy value must be of type 'object'");
+	// 	}
 
-		if (typeof enemy.getShips !== "function") {
-			throw new Error("enemy must be an object of type 'Player'");
-		}
+	// 	if (typeof enemy.getShips !== "function") {
+	// 		throw new Error("enemy must be an object of type 'Player'");
+	// 	}
 
-		return enemy.receiveAttack(coordinate);
-	};
+	// 	return enemy.receiveAttack(coordinate);
+	// };
 
-	const receiveAttack = (coordinate) => {
+	const receiveAttack = (coordinate: number) => {
 		validateCoordinate(coordinate);
 
 		return gameboard.receiveAttack(coordinate);
@@ -127,6 +127,6 @@ export default (name) => {
 		placeShip,
 		randomiseShipPlacement,
 		getShips,
-		attack,
+		// attack,
 	};
 };

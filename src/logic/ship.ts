@@ -1,6 +1,6 @@
-export default (length) => {
-	const ship = [];
-	let coordinates;
+export default (length: number) => {
+	const ship: string[] = [];
+	let coordinates: any;
 
 	(() => {
 		if (length > 4 || length < 1) {
@@ -14,7 +14,7 @@ export default (length) => {
 
 	const getShipLength = () => ship.length;
 
-	const hitShip = (position) => {
+	const hitShip = (position: number) => {
 		if (position < 0 || position > ship.length) {
 			return "miss: incorrect ship position";
 		}
@@ -42,7 +42,7 @@ export default (length) => {
 		return true;
 	};
 
-	const setCoordinates = (coordinate, direction) => {
+	const setCoordinates = (coordinate: number, direction: string) => {
 		if (coordinate < 0) {
 			return "error: negative coordinates given";
 		}
@@ -65,7 +65,7 @@ export default (length) => {
 
 	const getCoordinates = () => coordinates;
 
-	const getPositions = (coordinate, direction) => {
+	const getPositions = (coordinate: number, direction: string) => {
 		const positions = [coordinate];
 
 		if (direction === "horizontal") {
