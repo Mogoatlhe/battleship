@@ -49,47 +49,28 @@ describe("ship coordinates", () => {
 	});
 });
 
-describe("hitting a ship", () => {
-	let validShip = Ship(1);
-	test("attempting to hit a ship at incorrect position", () => {
-		expect(() => {
-			validShip.hitShip(2);
-		}).toThrow("miss: incorrect ship position");
-	});
-
-	test("hitting a ship", () => {
-		expect(validShip.hitShip(0)).toBe(true);
-	});
-
-	test("hitting a ship where it has been hit", () => {
-		expect(() => {
-			validShip.hitShip(0);
-		}).toThrow("cannot hit the same position twice");
-	});
-});
-
 describe("is sunk?", () => {
 	let validShip = Ship(1);
-	validShip.hitShip(0);
+	validShip.hitShip();
 	test("is sunk", () => {
 		expect(validShip.isSunk()).toBe(true);
 	});
 
 	let largerShip = Ship(4);
 	test("not sunk: 1/4 hit", () => {
-		largerShip.hitShip(0);
+		largerShip.hitShip();
 		expect(largerShip.isSunk()).toBe(false);
 	});
 	test("not sunk: 2/4 hit", () => {
-		largerShip.hitShip(1);
+		largerShip.hitShip();
 		expect(largerShip.isSunk()).toBe(false);
 	});
 	test("not sunk: 3/4 hit", () => {
-		largerShip.hitShip(2);
+		largerShip.hitShip();
 		expect(largerShip.isSunk()).toBe(false);
 	});
 	test("not sunk: 4/4 hit", () => {
-		largerShip.hitShip(3);
+		largerShip.hitShip();
 		expect(largerShip.isSunk()).toBe(true);
 	});
 });

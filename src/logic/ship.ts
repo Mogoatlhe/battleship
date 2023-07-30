@@ -17,19 +17,8 @@ export default (length: number) => {
 	/** retrieves the length of the ship */
 	const getShipLength = () => ship.length;
 
-	const hitShip = (position: number) => {
-		if (position < 0 || position >= ship.length) {
-			throw new Error("miss: incorrect ship position");
-		}
-
-		if (ship[position] === "x") {
-			throw new Error("cannot hit the same position twice");
-		}
-
+	const hitShip = () => {
 		hitCount += 1;
-		ship[position] = "x";
-
-		return isSunk();
 	};
 
 	const isSunk = () => {
