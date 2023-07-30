@@ -7,137 +7,148 @@ describe("place ships", () => {
 
 	test("invalid 'direction' value: direction value must be either 'horizontal' or 'vertical", () => {
 		expect(() => {
-			gameboard.placeShip([0, 0], 1, "diagonal");
+			const coords = { row: 0, col: 0 };
+			gameboard.placeShip(coords, 1, "diagonal");
 		}).toThrow(`"direction" value must be either "horizontal" or "vertical"`);
 	});
 
 	test("ship out of bounds: horizontal left", () => {
 		expect(() => {
-			gameboard.placeShip([0, -1], 2, "horizontal");
+			const coords = { row: 0, col: -1 };
+			gameboard.placeShip(coords, 2, "horizontal");
 		}).toThrow("start values are out of bounds");
 	});
 
 	test("ship out of bounds: horizontal right", () => {
 		expect(() => {
-			gameboard.placeShip([0, 10], 2, "horizontal");
+			const coords = { row: 0, col: 10 };
+			gameboard.placeShip(coords, 2, "horizontal");
 		}).toThrow("start values are out of bounds");
 	});
 
 	test("ship out of bounds: vertical top", () => {
 		expect(() => {
-			gameboard.placeShip([-1, 0], 2, "vertical");
+			const coords = { row: -1, col: 0 };
+			gameboard.placeShip(coords, 2, "vertical");
 		}).toThrow("start values are out of bounds");
 	});
 
 	test("ship out of bounds: vertical bottom", () => {
 		expect(() => {
-			gameboard.placeShip([10, 0], 2, "vertical");
+			const coords = { row: 10, col: 0 };
+			gameboard.placeShip(coords, 2, "vertical");
 		}).toThrow("start values are out of bounds");
 	});
 
 	test("ship out of bounds: horizontal - last piece", () => {
 		expect(() => {
-			gameboard.placeShip([0, 9], 4, "horizontal");
+			const coords = { row: 0, col: 9 };
+			gameboard.placeShip(coords, 4, "horizontal");
 		}).toThrow("start values are out of bounds");
 	});
 
 	test("ship out of bounds: vertical - last piece", () => {
 		expect(() => {
-			gameboard.placeShip([9, 0], 4, "vertical");
+			const coords = { row: 9, col: 0 };
+			gameboard.placeShip(coords, 4, "vertical");
 		}).toThrow("start values are out of bounds");
 	});
 
 	test("ships are too close - same position", () => {
 		expect(() => {
-			gameboard.placeShip([4, 4], 1, "horizontal");
-			gameboard.placeShip([4, 4], 1, "horizontal");
+			gameboard.placeShip({ row: 4, col: 4 }, 1, "horizontal");
+			gameboard.placeShip({ row: 4, col: 4 }, 1, "horizontal");
 		}).toThrow("invalid ship position");
 	});
 
 	test("ships are too close - left", () => {
 		expect(() => {
-			gameboard.placeShip([4, 4], 1, "horizontal");
-			gameboard.placeShip([4, 3], 1, "horizontal");
+			const coords = { row: 4, col: 3 };
+			gameboard.placeShip(coords, 1, "horizontal");
 		}).toThrow("invalid ship position");
 	});
 
 	test("ships are too close - right", () => {
 		expect(() => {
-			gameboard.placeShip([4, 4], 1, "horizontal");
-			gameboard.placeShip([4, 5], 1, "horizontal");
+			const coords = { row: 4, col: 5 };
+			gameboard.placeShip(coords, 1, "horizontal");
 		}).toThrow("invalid ship position");
 	});
 
 	test("ships are too close - top left", () => {
 		expect(() => {
-			gameboard.placeShip([4, 4], 1, "horizontal");
-			gameboard.placeShip([3, 3], 1, "horizontal");
+			const coords = { row: 3, col: 3 };
+			gameboard.placeShip(coords, 1, "horizontal");
 		}).toThrow("invalid ship position");
 	});
 
 	test("ships are too close - top", () => {
 		expect(() => {
-			gameboard.placeShip([4, 4], 1, "horizontal");
-			gameboard.placeShip([3, 4], 1, "horizontal");
+			const coords = { row: 3, col: 4 };
+			gameboard.placeShip(coords, 1, "horizontal");
 		}).toThrow("invalid ship position");
 	});
 
 	test("ships are too close - top right", () => {
 		expect(() => {
-			gameboard.placeShip([4, 4], 1, "horizontal");
-			gameboard.placeShip([3, 5], 1, "horizontal");
+			const coords = { row: 3, col: 5 };
+			gameboard.placeShip(coords, 1, "horizontal");
 		}).toThrow("invalid ship position");
 	});
 
 	test("ships are too close - bottom left", () => {
 		expect(() => {
-			gameboard.placeShip([4, 4], 1, "horizontal");
-			gameboard.placeShip([5, 3], 1, "horizontal");
+			const coords = { row: 5, col: 3 };
+			gameboard.placeShip(coords, 1, "horizontal");
 		}).toThrow("invalid ship position");
 	});
 
 	test("ships are too close - bottom", () => {
 		expect(() => {
-			gameboard.placeShip([4, 4], 1, "horizontal");
-			gameboard.placeShip([5, 4], 1, "horizontal");
+			const coords = { row: 5, col: 4 };
+			gameboard.placeShip(coords, 1, "horizontal");
 		}).toThrow("invalid ship position");
 	});
 
 	test("ships are too close - botton right", () => {
 		expect(() => {
-			gameboard.placeShip([4, 4], 1, "horizontal");
-			gameboard.placeShip([5, 5], 1, "horizontal");
+			const coords = { row: 5, col: 5 };
+			gameboard.placeShip(coords, 1, "horizontal");
 		}).toThrow("invalid ship position");
 	});
 
 	test("ship placed successfully - size 1", () => {
-		const shipPositions = gameboard.placeShip([0, 0], 0, "horizontal");
-		const row = shipPositions[0][shipPositions[0].length - 1][0];
-		const col = shipPositions[0][shipPositions[0].length - 1][1];
+		const coords = { row: 0, col: 0 };
+		const shipPositions = gameboard.placeShip(coords, 0, "horizontal");
+		const row = shipPositions[0][shipPositions[0].length - 1].row;
+		const col = shipPositions[0][shipPositions[0].length - 1].col;
 		expect(row).toBe(0);
 		expect(col).toBe(0);
 	});
 
 	test("ship placed successfully - size 2", () => {
-		const shipPositions = gameboard.placeShip([2, 0], 4, "horizontal");
-		const row = shipPositions[4][shipPositions[4].length - 1][0];
-		const col = shipPositions[4][shipPositions[4].length - 1][1];
+		const coords = { row: 2, col: 0 };
+		const shipPositions = gameboard.placeShip(coords, 4, "horizontal");
+		const row = shipPositions[4][shipPositions[4].length - 1].row;
+		const col = shipPositions[4][shipPositions[4].length - 1].col;
 		expect(row).toBe(2);
 		expect(col).toBe(1);
 	});
 
 	test("ship placed successfully - size 3", () => {
-		const shipPositions = gameboard.placeShip([4, 0], 7, "horizontal");
-		const row = shipPositions[7][shipPositions[7].length - 1][0];
-		const col = shipPositions[7][shipPositions[7].length - 1][1];
+		const coords = { row: 4, col: 0 };
+		const shipPositions = gameboard.placeShip(coords, 7, "horizontal");
+		const row = shipPositions[7][shipPositions[7].length - 1].row;
+		const col = shipPositions[7][shipPositions[7].length - 1].col;
 		expect(row).toBe(4);
 		expect(col).toBe(2);
 	});
 
 	test("ship placed successfully - size 4", () => {
-		const shipPositions = gameboard.placeShip([0, 9], 9, "vertical");
-		const row = shipPositions[9][shipPositions[9].length - 1][0];
-		const col = shipPositions[9][shipPositions[9].length - 1][1];
+		const coords = { row: 0, col: 9 };
+		const shipPositions = gameboard.placeShip(coords, 9, "vertical");
+		const row = shipPositions[9][shipPositions[9].length - 1].row;
+		const col = shipPositions[9][shipPositions[9].length - 1].col;
 		expect(row).toBe(3);
 		expect(col).toBe(9);
 	});
