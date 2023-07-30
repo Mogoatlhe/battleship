@@ -11,6 +11,9 @@ export default () => {
 		return ships;
 	};
 
+	const directions: string[] = [];
+	const shipPositions: number[][][] = [];
+	const invalidPositions: number[][] = [];
 	const attackAttempts: number[] = [];
 	const missedPositions = [];
 	const lengthFourShip = Ship(4);
@@ -25,98 +28,83 @@ export default () => {
 
 	const getShips = () => ships;
 
-	const isClose = (currShipPositions: number[], newShipPos: number) =>
-		currShipPositions.some((currShipPos) => {
-			let positionStart = currShipPos - 11;
-			let temp = 0;
+	// const placeShip = (index: number, starting: number, direction: string) => {
+	// 	if (index < 0 || index > 9)
+	// 		throw new Error("index must be between 0 and 9, inclusive");
 
-			while (positionStart < currShipPos + 12) {
-				if (positionStart === newShipPos) {
-					return true;
-				}
+	// 	if (starting < 0 || starting > 99)
+	// 		throw new Error("'starting' value must be between 0 and 99, inclusive");
 
-				temp += 1;
+	// 	if (direction !== "horizontal" && direction !== "vertical")
+	// 		throw new Error(
+	// 			"'direction' value must be either 'horizontal' or 'vertical'"
+	// 		);
 
-				if (temp === 3) {
-					temp = 0;
-					positionStart += 8;
-				} else {
-					positionStart += 1;
-				}
-			}
+	// 	const ship = ships[index];
+	// 	const length = ship.getShipLength();
+	// 	const lengthSize = starting.toString().length;
+	// 	const lastDigit = lengthSize === 1 ? starting : starting % 10;
+	// 	const firstDigit =
+	// 		lengthSize === 1 ? starting : Number(starting.toString()[0]);
 
-			return false;
-		});
+	// 	if (
+	// 		length > 1 &&
+	// 		((direction === "horizontal" && lastDigit + length > 10) ||
+	// 			(direction === "vertical" && firstDigit + length > 10))
+	// 	) {
+	// 		throw new Error("ship is out of bounds");
+	// 	}
 
-	const compareShips = (tempShips: any[], positions: number[]) => {
-		tempShips.forEach((currShip) => {
-			const coordinates = currShip.getCoordinates();
-			const currShipPositions = currShip.getPositions(
-				coordinates.coordinate,
-				coordinates.direction
-			);
+	// 	const positions = ship.getPositions(starting, direction);
 
-			positions.forEach((newShipPos) => {
-				const close = isClose(currShipPositions, newShipPos);
+	// 	const tempShips = ships.filter(
+	// 		(currShip) => currShip.getCoordinates() !== undefined
+	// 	);
 
-				if (close) {
-					throw new Error("too close to another ship");
-				}
-			});
-		});
-	};
+	// 	compareShips(tempShips, positions);
+	// 	ship.setCoordinates(starting, direction);
+	// };
 
-	const placeShip = (index: number, starting: number, direction: string) => {
-		if (typeof index !== "number") {
-			throw new Error("index must be a number");
-		}
+	// const isClose = (currShipPositions: number[], newShipPos: number) =>
+	// 	currShipPositions.some((currShipPos) => {
+	// 		let positionStart = currShipPos - 11;
+	// 		let temp = 0;
 
-		if (index < 0 || index > 9) {
-			throw new Error("index must be between 0 and 9, inclusive");
-		}
+	// 		while (positionStart < currShipPos + 12) {
+	// 			if (positionStart === newShipPos) {
+	// 				return true;
+	// 			}
 
-		if (typeof starting !== "number") {
-			throw new Error("'starting' value must be a number");
-		}
+	// 			temp += 1;
 
-		if (starting < 0 || starting > 99) {
-			throw new Error("'starting' value must be between 0 and 99, inclusive");
-		}
+	// 			if (temp === 3) {
+	// 				temp = 0;
+	// 				positionStart += 8;
+	// 			} else {
+	// 				positionStart += 1;
+	// 			}
+	// 		}
 
-		if (typeof direction !== "string") {
-			throw new Error("'direction' value must be a string");
-		}
+	// 		return false;
+	// 	});
 
-		if (direction !== "horizontal" && direction !== "vertical") {
-			throw new Error(
-				"'direction' value must be either 'horizontal' or 'vertical'"
-			);
-		}
+	// const compareShips = (tempShips: any[], positions: number[]) => {
+	// 	tempShips.forEach((currShip) => {
+	// 		const coordinates = currShip.getCoordinates();
+	// 		const currShipPositions = currShip.getPositions(
+	// 			coordinates.coordinate,
+	// 			coordinates.direction
+	// 		);
 
-		const ship = ships[index];
-		const length = ship.getShipLength();
-		const lengthSize = starting.toString().length;
-		const lastDigit = lengthSize === 1 ? starting : starting % 10;
-		const firstDigit =
-			lengthSize === 1 ? starting : Number(starting.toString()[0]);
+	// 		positions.forEach((newShipPos) => {
+	// 			const close = isClose(currShipPositions, newShipPos);
 
-		if (
-			length > 1 &&
-			((direction === "horizontal" && lastDigit + length > 10) ||
-				(direction === "vertical" && firstDigit + length > 10))
-		) {
-			throw new Error("ship is out of bounds");
-		}
-
-		const positions = ship.getPositions(starting, direction);
-
-		const tempShips = ships.filter(
-			(currShip) => currShip.getCoordinates() !== undefined
-		);
-
-		compareShips(tempShips, positions);
-		ship.setCoordinates(starting, direction);
-	};
+	// 			if (close) {
+	// 				throw new Error("too close to another ship");
+	// 			}
+	// 		});
+	// 	});
+	// };
 
 	const receiveAttack = (coordinate: number) => {
 		if (typeof coordinate !== "number") {
@@ -153,6 +141,101 @@ export default () => {
 
 		attackedShip.hitShip(hitPosition);
 		return true;
+	};
+
+	const placeShip = (start: number[], shipIndex: number, direction: string) => {
+		if (direction !== "vertical" && direction !== "horizontal")
+			throw new Error(
+				`"direction" value must be either "horizontal" or "vertical"`
+			);
+		const ship = ships[shipIndex];
+		const length = ship.getShipLength();
+		shipPositions[shipIndex] = getShipPositions(start, length, direction);
+		directions[shipIndex] = direction;
+
+		return [shipPositions, directions];
+	};
+
+	const getShipPositions = (
+		start: number[],
+		length: number,
+		direction: string
+	) => {
+		const shipPositions: number[][] = [];
+		const invalidPositionsTemp: number[][] = [];
+
+		for (let i = 0; i < length; i++) {
+			// if start is out of bounds, throw
+			if (start[0] < 0 || start[0] > 9 || start[1] < 0 || start[1] > 9)
+				throw new Error("start values are out of bounds");
+
+			// if ship position is invalid (e.g another ship is there) throw
+			if (
+				isInvalid(start, invalidPositionsTemp) ||
+				isInvalid(start, invalidPositions)
+			)
+				throw new Error("invalid ship position");
+
+			shipPositions.push([...start]);
+			invalidPositionsTemp.push([...start]);
+
+			if (direction === "horizontal") {
+				horizontalInvalidPos(i, start, length, invalidPositionsTemp);
+				start[1] += 1;
+			} else {
+				verticalInvalidPos(i, start, length, invalidPositionsTemp);
+				start[0] += 1;
+			}
+		}
+
+		invalidPositions.push(...invalidPositionsTemp);
+		return shipPositions;
+	};
+
+	const isInvalid = (start: number[], invalidPositionsTemp: number[][]) => {
+		let invalidPositionsString = JSON.stringify(invalidPositionsTemp);
+		let startString = JSON.stringify(start);
+
+		if (invalidPositionsString.includes(startString)) return true;
+		return false;
+	};
+
+	const verticalInvalidPos = (
+		i: number,
+		start: number[],
+		length: number,
+		invalidPositionsTemp: number[][]
+	) => {
+		if (i === 0) {
+			invalidPositionsTemp.push([start[0] - 1, start[1]]); // top
+			invalidPositionsTemp.push([start[0] - 1, start[1] - 1]); // top left only if first
+			invalidPositionsTemp.push([start[0] - 1, start[1] + 1]); // top right only if last
+		} else if (i === length - 1) {
+			invalidPositionsTemp.push([start[0] + 1, start[1]]); // bottom
+			invalidPositionsTemp.push([start[0] + 1, start[1] + 1]); // bottom right only if last
+			invalidPositionsTemp.push([start[0] + 1, start[1] - 1]); // bottom left only if first
+		}
+		invalidPositionsTemp.push([start[0], start[1] - 1]); // left
+		invalidPositionsTemp.push([start[0], start[1] + 1]); // right only if last
+	};
+
+	const horizontalInvalidPos = (
+		i: number,
+		start: number[],
+		length: number,
+		invalidPositionsTemp: number[][]
+	) => {
+		if (i === 0) {
+			invalidPositionsTemp.push([start[0], start[1] - 1]); // left
+			invalidPositionsTemp.push([start[0] - 1, start[1] - 1]); // top left only if first
+			invalidPositionsTemp.push([start[0] + 1, start[1] - 1]); // bottom left only if first
+		} else if (i === length - 1) {
+			invalidPositionsTemp.push([start[0] - 1, start[1] + 1]); // top right only if last
+			invalidPositionsTemp.push([start[0] + 1, start[1] + 1]); // bottom right only if last
+			invalidPositionsTemp.push([start[0], start[1] + 1]); // right only if last
+		}
+		invalidPositionsTemp.push([start[0] - 1, start[1]]); // top
+		invalidPositionsTemp.push([start[0] + 1, start[1]]); // bottom
 	};
 
 	const didAllSink = () => ships.every((ship) => ship.isSunk());
