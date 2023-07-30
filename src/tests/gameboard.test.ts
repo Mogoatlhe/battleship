@@ -207,18 +207,121 @@ describe("receive attack", () => {
 	});
 });
 
-// describe("did all ships sink", () => {
-// 	const gameboard = Gameboard();
-// 	gameboard.placeShip({ row: 0, col: 9 }, 0, "horizontal");
-// 	gameboard.placeShip({ row: 3, col: 9 }, 1, "horizontal");
-// 	gameboard.placeShip({ row: 6, col: 7 }, 2, "horizontal");
-// 	gameboard.placeShip({ row: 9, col: 8 }, 3, "horizontal");
-// 	gameboard.placeShip({ row: 0, col: 6 }, 4, "horizontal");
-// 	gameboard.placeShip({ row: 3, col: 1 }, 5, "horizontal");
-// 	gameboard.placeShip({ row: 5, col: 2 }, 6, "vertical");
-// 	gameboard.placeShip({ row: 0, col: 0 }, 7, "horizontal");
-// 	gameboard.placeShip({ row: 5, col: 5 }, 8, "vertical");
-// 	gameboard.placeShip({ row: 8, col: 0 }, 9, "horizontal");
-// 		test("not all ships sunk", () => {
-// 			expect(gameboard.didAllSink()).toBe(false);});
-// });
+describe("did all ships sink", () => {
+	const gameboard = Gameboard();
+	const ships = gameboard.getShips();
+	gameboard.placeShip({ row: 0, col: 9 }, 0, "horizontal");
+	gameboard.placeShip({ row: 3, col: 9 }, 1, "horizontal");
+	gameboard.placeShip({ row: 6, col: 7 }, 2, "horizontal");
+	gameboard.placeShip({ row: 9, col: 8 }, 3, "horizontal");
+	gameboard.placeShip({ row: 0, col: 6 }, 4, "horizontal");
+	gameboard.placeShip({ row: 3, col: 1 }, 5, "horizontal");
+	gameboard.placeShip({ row: 5, col: 2 }, 6, "vertical");
+	gameboard.placeShip({ row: 0, col: 0 }, 7, "horizontal");
+	gameboard.placeShip({ row: 5, col: 5 }, 8, "vertical");
+	gameboard.placeShip({ row: 8, col: 0 }, 9, "horizontal");
+
+	test("not all ships sunk - no hit", () => {
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 1 hit", () => {
+		gameboard.receiveAttack({ row: 0, col: 9 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 2 hit", () => {
+		gameboard.receiveAttack({ row: 3, col: 9 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 3 hit", () => {
+		gameboard.receiveAttack({ row: 6, col: 7 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 4 hit", () => {
+		gameboard.receiveAttack({ row: 9, col: 8 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 5 hit", () => {
+		gameboard.receiveAttack({ row: 0, col: 6 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 6 hit", () => {
+		gameboard.receiveAttack({ row: 0, col: 7 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 7 hit", () => {
+		gameboard.receiveAttack({ row: 3, col: 1 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 8 hit", () => {
+		gameboard.receiveAttack({ row: 3, col: 2 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 9 hit", () => {
+		gameboard.receiveAttack({ row: 5, col: 2 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 10 hit", () => {
+		gameboard.receiveAttack({ row: 6, col: 2 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 11 hit", () => {
+		gameboard.receiveAttack({ row: 0, col: 0 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 12 hit", () => {
+		gameboard.receiveAttack({ row: 0, col: 1 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 13 hit", () => {
+		gameboard.receiveAttack({ row: 0, col: 2 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 14 hit", () => {
+		gameboard.receiveAttack({ row: 5, col: 5 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 15 hit", () => {
+		gameboard.receiveAttack({ row: 6, col: 5 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 16 hit", () => {
+		gameboard.receiveAttack({ row: 7, col: 5 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 17 hit", () => {
+		gameboard.receiveAttack({ row: 8, col: 0 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 18 hit", () => {
+		gameboard.receiveAttack({ row: 8, col: 1 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 19 hit", () => {
+		gameboard.receiveAttack({ row: 8, col: 2 });
+		expect(gameboard.didAllSink()).toBe(false);
+	});
+
+	test("not all ships sunk - 20 hit", () => {
+		gameboard.receiveAttack({ row: 8, col: 3 });
+		expect(gameboard.didAllSink()).toBe(true);
+	});
+});

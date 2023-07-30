@@ -255,7 +255,7 @@ export default () => {
 		return hitShipIndex;
 	};
 
-	const didAllSink = () => ships.every((ship) => ship.isSunk());
+	const didAllSink = () => (isSunkCount > 0 ? false : true);
 
 	return { placeShip, receiveAttack, didAllSink, getShips };
 };
