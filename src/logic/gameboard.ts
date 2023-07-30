@@ -11,10 +11,11 @@ export default () => {
 		return ships;
 	};
 
+	let isSunkCount = 10;
 	const shipPositions: Coordinates[][] = [];
 	const invalidPositions: Coordinates[] = [];
 	const attackAttempts: Coordinates[] = [];
-	const missedPositions = [];
+	const missedPositions: Coordinates[] = [];
 	const lengthFourShip = Ship(4);
 	const lengthThreeShips = createShipCollection(3, 2);
 	const lengthTwoShips = createShipCollection(2, 3);
@@ -123,28 +124,20 @@ export default () => {
 		)
 			throw Error("cannot hit an already hit spot");
 
-		// const placedShips = ships.filter(
-		// 	(ship) => ship.getCoordinates() !== undefined && !ship.isSunk()
-		// );
+		attackAttempts.push(coordinates);
+		const hitShipIndex = getHitShipIndex(coordinates);
 
-		// let hitPosition;
-		// const attackedShip = placedShips.find((placedShip) => {
-		// 	const starting = placedShip.getCoordinates().coordinate;
-		// 	const { direction } = placedShip.getCoordinates();
-		// 	const placedShipPos = placedShip.getPositions(starting, direction);
+		if (hitShipIndex < 0) {
+			missedPositions.push(coordinates);
+			return false;
+		}
 
-		// 	hitPosition = placedShipPos.findIndex((pos) => pos === coordinates);
-		// 	return hitPosition === -1 ? undefined : placedShip;
-		// });
+		const ship = ships[hitShipIndex];
+		ship.hitShip();
 
-		// attackAttempts.push(coordinates);
-		// if (attackedShip === undefined) {
-		// 	missedPositions.push(coordinates);
-		// 	return false;
-		// }
+		if (ship.isSunk()) isSunkCount -= 1;
 
-		// attackedShip.hitShip(hitPosition);
-		// return true;
+		return true;
 	};
 
 	const placeShip = (
@@ -248,6 +241,18 @@ export default () => {
 		}
 		invalidPositionsTemp.push({ row: start.row - 1, col: start.col }); // top
 		invalidPositionsTemp.push({ row: start.row + 1, col: start.col }); // bottom
+	};
+
+	const getHitShipIndex = (coordinates: Coordinates) => {
+		const hitShipIndex = shipPositions.findIndex((pos) => {
+			const posString = JSON.stringify(pos);
+			const coordsString = JSON.stringify(coordinates);
+
+			if (pos !== undefined && posString.includes(coordsString)) return true;
+			return false;
+		});
+
+		return hitShipIndex;
 	};
 
 	const didAllSink = () => ships.every((ship) => ship.isSunk());

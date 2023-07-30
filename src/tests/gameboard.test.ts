@@ -156,6 +156,7 @@ describe("place ships", () => {
 
 describe("receive attack", () => {
 	const gameboard = Gameboard();
+	gameboard.placeShip({ row: 0, col: 0 }, 7, "horizontal");
 
 	test("receive attack: negative coordinate row value", () => {
 		expect(() => gameboard.receiveAttack({ row: -1, col: 0 })).toThrow(
@@ -176,29 +177,48 @@ describe("receive attack", () => {
 	});
 
 	test("receive attack: large cordinate col value", () => {
-		expect(() => gameboard.receiveAttack({ row: 0, col: 100 })).toThrow(
+		expect(() => gameboard.receiveAttack({ row: 0, col: 10 })).toThrow(
 			"coordinates are out of bounds"
 		);
 	});
 
-	// 	test("receive attack: miss", () => {
-	// 		expect(gameboard.receiveAttack(44)).toBe(false);
-	// 	});
-	// 	test("receive attack: hit", () => {
-	// 		expect(gameboard.receiveAttack(45)).toBe(true);
-	// 	});
-	// 	test("receive attack: hitting an already hit place", () => {
-	// 		expect(() => gameboard.receiveAttack(44)).toThrow(
-	// 			"cannot hit an already hit spot"
-	// 		);
-	// 	});
-	// 	test("receive attack: hitting an already hit place", () => {
-	// 		expect(() => gameboard.receiveAttack(45)).toThrow(
-	// 			"cannot hit an already hit spot"
-	// 		);
-	// 	});
-	// });
-	// describe("did all ships sink", () => {
-	// 	test("not all ships sunk", () => {
-	// 		expect(gameboard.didAllSink()).toBe(false);
+	test("receive attack: miss", () => {
+		const coords = { row: 0, col: 3 };
+		expect(gameboard.receiveAttack(coords)).toBe(false);
+	});
+
+	test("receive attack: hit", () => {
+		const coords = { row: 0, col: 0 };
+		expect(gameboard.receiveAttack(coords)).toBe(true);
+	});
+
+	test("receive attack: attack an already attacked place - hit", () => {
+		const coords = { row: 0, col: 0 };
+		expect(() => gameboard.receiveAttack(coords)).toThrow(
+			"cannot hit an already hit spot"
+		);
+	});
+
+	test("receive attack: attack an already attacked place - hit", () => {
+		const coords = { row: 0, col: 3 };
+		expect(() => gameboard.receiveAttack(coords)).toThrow(
+			"cannot hit an already hit spot"
+		);
+	});
 });
+
+// describe("did all ships sink", () => {
+// 	const gameboard = Gameboard();
+// 	gameboard.placeShip({ row: 0, col: 9 }, 0, "horizontal");
+// 	gameboard.placeShip({ row: 3, col: 9 }, 1, "horizontal");
+// 	gameboard.placeShip({ row: 6, col: 7 }, 2, "horizontal");
+// 	gameboard.placeShip({ row: 9, col: 8 }, 3, "horizontal");
+// 	gameboard.placeShip({ row: 0, col: 6 }, 4, "horizontal");
+// 	gameboard.placeShip({ row: 3, col: 1 }, 5, "horizontal");
+// 	gameboard.placeShip({ row: 5, col: 2 }, 6, "vertical");
+// 	gameboard.placeShip({ row: 0, col: 0 }, 7, "horizontal");
+// 	gameboard.placeShip({ row: 5, col: 5 }, 8, "vertical");
+// 	gameboard.placeShip({ row: 8, col: 0 }, 9, "horizontal");
+// 		test("not all ships sunk", () => {
+// 			expect(gameboard.didAllSink()).toBe(false);});
+// });
