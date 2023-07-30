@@ -111,100 +111,83 @@ describe("place ships", () => {
 	});
 
 	test("ship placed successfully - size 1", () => {
-		const [shipPosition, directions] = gameboard.placeShip(
-			[0, 0],
-			0,
-			"horizontal"
-		);
-		const coordinatesMatch =
-			shipPosition[0][0][0] === 0 &&
-			shipPosition[0][0][1] === 0 &&
-			directions[0] === "horizontal"
-				? true
-				: false;
-		expect(coordinatesMatch).toBe(true);
+		const shipPositions = gameboard.placeShip([0, 0], 0, "horizontal");
+		const row = shipPositions[0][shipPositions[0].length - 1][0];
+		const col = shipPositions[0][shipPositions[0].length - 1][1];
+		expect(row).toBe(0);
+		expect(col).toBe(0);
 	});
 
 	test("ship placed successfully - size 2", () => {
-		const [shipPosition, directions] = gameboard.placeShip(
-			[2, 0],
-			4,
-			"horizontal"
-		);
-		const coordinatesMatch =
-			shipPosition[4][0][0] === 2 &&
-			shipPosition[4][0][1] === 0 &&
-			directions[4] === "horizontal"
-				? true
-				: false;
-		expect(coordinatesMatch).toBe(true);
+		const shipPositions = gameboard.placeShip([2, 0], 4, "horizontal");
+		const row = shipPositions[4][shipPositions[4].length - 1][0];
+		const col = shipPositions[4][shipPositions[4].length - 1][1];
+		expect(row).toBe(2);
+		expect(col).toBe(1);
 	});
 
 	test("ship placed successfully - size 3", () => {
-		const [shipPosition, directions] = gameboard.placeShip(
-			[4, 0],
-			7,
-			"horizontal"
-		);
-		const coordinatesMatch =
-			shipPosition[7][0][0] === 4 &&
-			shipPosition[7][0][1] === 0 &&
-			directions[7] === "horizontal"
-				? true
-				: false;
-		expect(coordinatesMatch).toBe(true);
+		const shipPositions = gameboard.placeShip([4, 0], 7, "horizontal");
+		const row = shipPositions[7][shipPositions[7].length - 1][0];
+		const col = shipPositions[7][shipPositions[7].length - 1][1];
+		expect(row).toBe(4);
+		expect(col).toBe(2);
 	});
 
 	test("ship placed successfully - size 4", () => {
-		const [shipPosition, directions] = gameboard.placeShip(
-			[0, 9],
-			9,
-			"vertical"
-		);
-		const coordinatesMatch =
-			shipPosition[9][0][0] === 0 &&
-			shipPosition[9][0][1] === 9 &&
-			directions[9] === "vertical"
-				? true
-				: false;
-		expect(coordinatesMatch).toBe(true);
+		const shipPositions = gameboard.placeShip([0, 9], 9, "vertical");
+		const row = shipPositions[9][shipPositions[9].length - 1][0];
+		const col = shipPositions[9][shipPositions[9].length - 1][1];
+		expect(row).toBe(3);
+		expect(col).toBe(9);
 	});
 });
 
-// describe("receive attack", () => {
-// 	test("receive attack: coordinate must be a number", () => {
-// 		expect(() => gameboard.receiveAttack(null)).toThrow(
-// 			"coordinate value must be a number"
-// 		);
-// 	});
-// 	test("receive attack: negative coordinate value", () => {
-// 		expect(() => gameboard.receiveAttack(-1)).toThrow(
-// 			"coordinate value must be between 0 and 99, inclusive"
-// 		);
-// 	});
-// 	test("receive attack: large coordinate value", () => {
-// 		expect(() => gameboard.receiveAttack(100)).toThrow(
-// 			"coordinate value must be between 0 and 99, inclusive"
-// 		);
-// 	});
-// 	test("receive attack: miss", () => {
-// 		expect(gameboard.receiveAttack(44)).toBe(false);
-// 	});
-// 	test("receive attack: hit", () => {
-// 		expect(gameboard.receiveAttack(45)).toBe(true);
-// 	});
-// 	test("receive attack: hitting an already hit place", () => {
-// 		expect(() => gameboard.receiveAttack(44)).toThrow(
-// 			"cannot hit an already hit spot"
-// 		);
-// 	});
-// 	test("receive attack: hitting an already hit place", () => {
-// 		expect(() => gameboard.receiveAttack(45)).toThrow(
-// 			"cannot hit an already hit spot"
-// 		);
-// 	});
-// });
-// describe("did all ships sink", () => {
-// 	test("not all ships sunk", () => {
-// 		expect(gameboard.didAllSink()).toBe(false);
-// 	});
+describe("receive attack", () => {
+	const gameboard = Gameboard();
+
+	test("receive attack: negative coordinate row value", () => {
+		expect(() => gameboard.receiveAttack({ row: -1, col: 0 })).toThrow(
+			"coordinates are out of bounds"
+		);
+	});
+
+	test("receive attack: negative coordinate col value", () => {
+		expect(() => gameboard.receiveAttack({ row: 0, col: -1 })).toThrow(
+			"coordinates are out of bounds"
+		);
+	});
+
+	test("receive attack: large cordinate row value", () => {
+		expect(() => gameboard.receiveAttack({ row: 10, col: 0 })).toThrow(
+			"coordinates are out of bounds"
+		);
+	});
+
+	test("receive attack: large cordinate col value", () => {
+		expect(() => gameboard.receiveAttack({ row: 0, col: 100 })).toThrow(
+			"coordinates are out of bounds"
+		);
+	});
+
+	// 	test("receive attack: miss", () => {
+	// 		expect(gameboard.receiveAttack(44)).toBe(false);
+	// 	});
+	// 	test("receive attack: hit", () => {
+	// 		expect(gameboard.receiveAttack(45)).toBe(true);
+	// 	});
+	// 	test("receive attack: hitting an already hit place", () => {
+	// 		expect(() => gameboard.receiveAttack(44)).toThrow(
+	// 			"cannot hit an already hit spot"
+	// 		);
+	// 	});
+	// 	test("receive attack: hitting an already hit place", () => {
+	// 		expect(() => gameboard.receiveAttack(45)).toThrow(
+	// 			"cannot hit an already hit spot"
+	// 		);
+	// 	});
+	// });
+	// describe("did all ships sink", () => {
+	// 	test("not all ships sunk", () => {
+	// 		expect(gameboard.didAllSink()).toBe(false);
+});
