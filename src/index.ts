@@ -12,7 +12,7 @@ const human = Player("human");
 const computer = Player("computer");
 
 Alphabets();
-const numbers = Numbers();
+Numbers();
 const playerHeading = PlayerHeading();
 const p1Grid = GridItem(0, computer, human);
 const p2Grid = GridItem(1, human, computer);
@@ -20,7 +20,6 @@ Dragover();
 
 playerHeading.setPlayerName(human.getName(), 0);
 playerHeading.setPlayerName(computer.getName(), 1);
-numbers.appendNumbers();
 
 p1Grid.appendGridItems(0);
 p2Grid.appendGridItems(1);

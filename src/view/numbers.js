@@ -1,5 +1,5 @@
 export default () => {
-	const appendNumbers = () => {
+	(() => {
 		const numCoords = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 		const numbers = document.getElementsByClassName("numbers");
 
@@ -11,7 +11,5 @@ export default () => {
 				num.append(numText);
 			});
 		});
-	};
-
-	return { appendNumbers };
+	})();
 };
