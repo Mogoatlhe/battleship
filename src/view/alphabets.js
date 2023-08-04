@@ -1,5 +1,5 @@
 export default () => {
-	const appendAlphabets = () => {
+	(() => {
 		const alphaCoords = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 		const alphabets = document.getElementsByClassName("alphabets");
 
@@ -11,7 +11,5 @@ export default () => {
 				alphabet.append(alphaText);
 			});
 		});
-	};
-
-	return { appendAlphabets };
+	})();
 };
