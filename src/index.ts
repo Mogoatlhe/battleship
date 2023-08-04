@@ -27,8 +27,8 @@ p2Grid.appendGridItems(1);
 try {
 	console.log(computer.randomiseShipPlacement());
 	Yard(computer.getShips());
-	p1Grid.placeShips();
-	p2Grid.placeShips();
+	// p1Grid.placeShips();
+	// p2Grid.placeShips();
 } catch (e) {
 	console.log(e);
 }
