@@ -111,6 +111,11 @@ i {
 	font-family: var(--anton);
 }
 
+.alphabet-container {
+	display: flex;
+	justify-content: center;
+}
+
 .numbers-grid-container {
 	margin-right: 15px;
 	display: flex;

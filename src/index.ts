@@ -1,8 +1,6 @@
 import "./style/style.css";
 
 import Player from "./logic/player";
-import Alphabets from "./view/alphabets";
-import PlayerHeading from "./view/playerHeading";
 import Numbers from "./view/numbers";
 import GridItem from "./view/gridItem";
 import Yard from "./view/yard";
@@ -13,7 +11,6 @@ const viewIndex = ViewIndex();
 const human = Player("human");
 const computer = Player("computer");
 
-Alphabets();
 Numbers();
 
 const p1Grid = GridItem(0, () => human);
