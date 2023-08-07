@@ -1,17 +1,14 @@
 import "./style/style.css";
 
 import Player from "./logic/player";
-import Numbers from "./view/numbers";
 import GridItem from "./view/gridItem";
 import Yard from "./view/yard";
 import Dragover from "./view/dragover";
 import ViewIndex from "./view";
 
-const viewIndex = ViewIndex();
+ViewIndex();
 const human = Player("human");
 const computer = Player("computer");
-
-Numbers();
 
 const p1Grid = GridItem(0, () => human);
 const p2Grid = GridItem(1, () => computer);
