@@ -1,5 +1,5 @@
 import Randomise from "./randomise";
-const boardOptions = () => {
+const BoardOptions = () => {
 	const randomise = Randomise();
 	const optionsContainer = document.createElement("div");
 	optionsContainer.classList.add("flex");
@@ -8,7 +8,7 @@ const boardOptions = () => {
 
 	const getBoardOptions = () => optionsContainer;
 
-	return getBoardOptions;
+	return { getBoardOptions };
 };
 
-export default boardOptions;
+export default BoardOptions;

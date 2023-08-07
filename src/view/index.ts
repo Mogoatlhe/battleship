@@ -9,7 +9,7 @@ const ViewIndex = () => {
 	const fleets = document.createElement("div");
 
 	fleets.setAttribute("id", "fleets");
-
+	humanFleet.manageFleet();
 	fleets.append(humanFleet.getFleet());
 	content.append(header.getHeader());
 	content.append(fleets);

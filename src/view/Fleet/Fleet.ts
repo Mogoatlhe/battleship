@@ -21,7 +21,14 @@ const Fleet = (fleetName: string) => {
 
 	const getFleet = () => fleet;
 
-	return { getFleet };
+	const manageFleet = () => {
+		if (fleetName !== "human") return;
+
+		const boardOptions = BoardOptions();
+		fleet.append(boardOptions.getBoardOptions());
+	};
+
+	return { getFleet, manageFleet };
 };
 
 export default Fleet;
