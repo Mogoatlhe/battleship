@@ -2,7 +2,7 @@ export default () => {
 	let startingPos;
 	let endingPos;
 
-	const dragTarget = document.querySelector("#your-fleet .grid-container");
+	const dragTarget = document.querySelector("#human .grid-container");
 
 	const getClickedShipPart = (dragging) =>
 		[...dragging.childNodes].findIndex((dragChild) =>

@@ -158,7 +158,7 @@ i {
 	cursor: pointer;
 }
 
-#your-fleet .ship {
+#human .ship {
 	background-color: red;
 }
 
@@ -197,7 +197,7 @@ i {
 	align-items: center;
 }
 
-#your-fleet .grid-container div:hover {
+#human .grid-container div:hover {
 	cursor: default;
 }
 

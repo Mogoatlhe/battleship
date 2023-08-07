@@ -204,7 +204,7 @@ export default (index: number, me: typeof Player) => {
 			// 	);
 
 			// 	const yourFleetGrid = document.querySelector(
-			// 		"#your-fleet .numbers-grid-container .grid-container"
+			// 		"#human .numbers-grid-container .grid-container"
 			// 	);
 			// 	yourFleetGrid.removeChild(square);
 			// }
@@ -245,7 +245,7 @@ export default (index: number, me: typeof Player) => {
 	// 					enemyShips.splice(enemyShipPos, 1);
 
 	// 					if (enemyShips.length === 0) {
-	// 						const searchItem = index === 0 ? "your-fleet" : "opponent-fleet";
+	// 						const searchItem = index === 0 ? "human" : "computer";
 	// 						const fleet = document.getElementById(searchItem);
 	// 						const items = fleet.querySelectorAll(".grid-container > *");
 	// 						items.forEach((item) => item.classList.add("done"));
@@ -368,8 +368,8 @@ export default (index: number, me: typeof Player) => {
 
 	const getFleet = () => {
 		let fleet: string;
-		if (name === "human") fleet = "#your-fleet";
-		else fleet = "#opponent-fleet";
+		if (name === "human") fleet = "#human";
+		else fleet = "#computer";
 
 		return fleet;
 	};
