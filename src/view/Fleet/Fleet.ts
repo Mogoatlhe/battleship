@@ -24,7 +24,7 @@ const Fleet = (fleetName: string) => {
 	const manageFleet = () => {
 		if (fleetName !== "human") return;
 
-		const boardOptions = BoardOptions();
+		const boardOptions = BoardOptions(() => grid);
 		fleet.append(boardOptions.getBoardOptions());
 	};
 

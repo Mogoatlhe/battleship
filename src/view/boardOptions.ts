@@ -1,6 +1,8 @@
+import Grid from "./Fleet/Grid";
 import Randomise from "./randomise";
-const BoardOptions = () => {
-	const randomise = Randomise();
+
+const BoardOptions = (grid: typeof Grid) => {
+	const randomise = Randomise(grid);
 	const optionsContainer = document.createElement("div");
 	optionsContainer.classList.add("flex");
 	optionsContainer.setAttribute("id", "options-container");

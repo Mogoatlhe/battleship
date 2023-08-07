@@ -1,13 +1,21 @@
-const Randomise = () => {
+import Player from "../logic/player";
+import Grid from "./Fleet/Grid";
+
+const Randomise = (grid: typeof Grid) => {
+	let shipsPlaced = false;
+	const currGrid = grid(Player);
 	const randomiseBtn = document.createElement("button");
 	randomiseBtn.classList.add("randomise");
 	randomiseBtn.textContent = "Randomise";
 
-	randomiseBtn.addEventListener("click", () => {});
+	randomiseBtn.addEventListener("click", randomiseShips);
 
-	const randomiseShips = (grid: any) => {
-		grid.randomiseShipPlacement();
-	};
+	function randomiseShips() {
+		if (shipsPlaced) return;
+		const gridItem = currGrid.getGridItem();
+		gridItem.randomiseShipPlacement();
+		shipsPlaced = true;
+	}
 
 	const getBtn = () => randomiseBtn;
 

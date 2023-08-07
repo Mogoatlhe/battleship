@@ -20,8 +20,9 @@ const Grid = (player: typeof Player) => {
 	container.append(gridContainer);
 
 	const getContainer = () => container;
+	const getGridItem = () => gridItem;
 
-	return { getContainer };
+	return { getContainer, getGridItem };
 };
 
 export default Grid;
