@@ -337,11 +337,7 @@ export default (index: number, me: typeof Player) => {
 		if (shipsPlaced) return;
 
 		let shipLength: number;
-		let fleet: string;
 		const ships = currPlayer.randomiseShipPlacement();
-
-		if (name === "human") fleet = "#your-fleet";
-		else fleet = "#opponent-fleet";
 
 		for (let i = 0; i < ships.length; i++) {
 			if (i < 1) shipLength = 4; // 0
@@ -355,7 +351,7 @@ export default (index: number, me: typeof Player) => {
 
 			for (let j = 0; j < shipLength; j++) {
 				const cell = document.querySelector(
-					`${fleet} [data-x="${row}"][data-y="${col}"]`
+					`${getFleet()} [data-x="${row}"][data-y="${col}"]`
 				);
 
 				cell.classList.add("ship");
@@ -368,6 +364,14 @@ export default (index: number, me: typeof Player) => {
 		}
 
 		shipsPlaced = true;
+	};
+
+	const getFleet = () => {
+		let fleet: string;
+		if (name === "human") fleet = "#your-fleet";
+		else fleet = "#opponent-fleet";
+
+		return fleet;
 	};
 
 	const placeShips = (coordsDirection: CoordsDirection[]) => {};
