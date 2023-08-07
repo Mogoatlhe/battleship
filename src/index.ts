@@ -15,13 +15,10 @@ const computer = Player("computer");
 
 Alphabets();
 Numbers();
-const playerHeading = PlayerHeading();
+
 const p1Grid = GridItem(0, () => human);
 const p2Grid = GridItem(1, () => computer);
 Dragover();
-
-playerHeading.setPlayerName(human.getName(), 0);
-playerHeading.setPlayerName(computer.getName(), 1);
 
 p1Grid.appendGridItems(0);
 p2Grid.appendGridItems(1);
