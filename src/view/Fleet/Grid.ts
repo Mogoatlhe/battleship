@@ -1,6 +1,8 @@
 import Label from "./GridLabel/labels";
+import GridItem from "./GridItem";
+import Player from "../../logic/player";
 
-const Grid = () => {
+const Grid = (player: typeof Player) => {
 	const container = document.createElement("div");
 	const gridContainer = document.createElement("div");
 	const numbersContainer = document.createElement("div");
@@ -10,6 +12,8 @@ const Grid = () => {
 	container.classList.add("numbers-grid-container");
 	numbersContainer.classList.add("numbers");
 	gridContainer.classList.add("grid-container");
+	const gridItem = GridItem(gridContainer, player);
+	gridItem.appendGridItems();
 
 	numbersContainer.append(numbers.getLabels());
 	container.append(numbersContainer);
