@@ -158,7 +158,7 @@ i {
 	cursor: pointer;
 }
 
-.ship {
+#your-fleet .ship {
 	background-color: red;
 }
 
