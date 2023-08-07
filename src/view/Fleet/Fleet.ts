@@ -1,4 +1,4 @@
-import Alphabets from "./Alphabets/alphabets";
+import Alphabets from "./GridLabel/alphabets";
 import FleetHeader from "./FleetHeader";
 
 const Fleet = (fleetName: string) => {
