@@ -14,8 +14,8 @@ const computer = Player("computer");
 Alphabets();
 Numbers();
 const playerHeading = PlayerHeading();
-const p1Grid = GridItem(0, computer, human);
-const p2Grid = GridItem(1, human, computer);
+const p1Grid = GridItem(0, () => human);
+const p2Grid = GridItem(1, () => computer);
 Dragover();
 
 playerHeading.setPlayerName(human.getName(), 0);
@@ -25,7 +25,8 @@ p1Grid.appendGridItems(0);
 p2Grid.appendGridItems(1);
 
 try {
-	console.log(computer.randomiseShipPlacement());
+	p1Grid.randomiseShipPlacement();
+	// console.log(computer.randomiseShipPlacement());
 	Yard(computer.getShips());
 	// p1Grid.placeShips();
 	// p2Grid.placeShips();

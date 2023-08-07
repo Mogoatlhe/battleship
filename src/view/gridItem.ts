@@ -1,14 +1,14 @@
 import Surround from "./surround";
 import CoordsDirection from "../logic/types/coordsDirection";
+import Player from "../logic/player";
 
-export default (
-	index: number,
-	me: { attack: (arg0: any, arg1: number) => any },
-	enemy: { getShips: () => any }
-) => {
+export default (index: number, me: typeof Player) => {
+	let shipsPlaced = false;
 	const gridContainer = document.getElementsByClassName("grid-container");
 	const container = gridContainer[index];
 	const { children } = container;
+	const currPlayer = me("");
+	const name = currPlayer.getName();
 
 	// const resetId = (shipContainer) => {
 	// 	const prevSibling = shipContainer.previousSibling;
@@ -213,66 +213,87 @@ export default (
 		});
 	};
 
-	const onClick = () => {
-		const enemyShips = enemy.getShips();
+	// const onClick = () => {
+	// 	const enemyShips = enemy.getShips();
 
-		Array.from(children).forEach((child) => {
-			child.addEventListener("click", (e) => {
-				let isHumanGrid = false;
+	// 	Array.from(children).forEach((child) => {
+	// 		child.addEventListener("click", (e) => {
+	// 			let isHumanGrid = false;
 
-				// checks the click was by a human, or by a script
-				// isTrusted returns true if the click was by a human
-				if (Number(index) === 0 && e.isTrusted) {
-					isHumanGrid = true;
-				}
+	// 			// checks the click was by a human, or by a script
+	// 			// isTrusted returns true if the click was by a human
+	// 			if (Number(index) === 0 && e.isTrusted) {
+	// 				isHumanGrid = true;
+	// 			}
 
-				// prevents human from clicking on own grid.
-				if (isHumanGrid) {
-					return;
-				}
+	// 			// prevents human from clicking on own grid.
+	// 			if (isHumanGrid) {
+	// 				return;
+	// 			}
 
-				const c = child as HTMLElement;
-				const id = Number(c.dataset.id);
-				if (me.attack(enemy, id)) {
-					c.classList.add("hit");
-					const enemyShipPos = enemyShips.findIndex(
-						(enemyShip: { isSunk: () => any }) => enemyShip.isSunk()
-					);
+	// 			const c = child as HTMLElement;
+	// 			const id = Number(c.dataset.id);
+	// 			if (me.attack(enemy, id)) {
+	// 				c.classList.add("hit");
+	// 				const enemyShipPos = enemyShips.findIndex(
+	// 					(enemyShip: { isSunk: () => any }) => enemyShip.isSunk()
+	// 				);
 
-					if (enemyShipPos !== -1) {
-						const enemyShip = enemyShips[enemyShipPos];
-						surrondShip(enemyShip);
-						enemyShips.splice(enemyShipPos, 1);
+	// 				if (enemyShipPos !== -1) {
+	// 					const enemyShip = enemyShips[enemyShipPos];
+	// 					surrondShip(enemyShip);
+	// 					enemyShips.splice(enemyShipPos, 1);
 
-						if (enemyShips.length === 0) {
-							const searchItem = index === 0 ? "your-fleet" : "opponent-fleet";
-							const fleet = document.getElementById(searchItem);
-							const items = fleet.querySelectorAll(".grid-container > *");
-							items.forEach((item) => item.classList.add("done"));
-						}
-					}
-				} else {
-					child.classList.add("miss");
-					showMiss(id);
-				}
-			});
-		});
-	};
+	// 					if (enemyShips.length === 0) {
+	// 						const searchItem = index === 0 ? "your-fleet" : "opponent-fleet";
+	// 						const fleet = document.getElementById(searchItem);
+	// 						const items = fleet.querySelectorAll(".grid-container > *");
+	// 						items.forEach((item) => item.classList.add("done"));
+	// 					}
+	// 				}
+	// 			} else {
+	// 				child.classList.add("miss");
+	// 				showMiss(id);
+	// 			}
+	// 		});
+	// 	});
+	// };
 
 	const appendGridItems = (gridIndex: number) => {
-		for (let i = 0; i < 100; i += 1) {
-			const item = document.createElement("div");
-			item.setAttribute("data-id", i.toString());
-
-			gridContainer[gridIndex].append(item);
+		for (let i = 0; i < 10; i++) {
+			const row = document.createElement("div");
+			row.classList.add("grid-row");
+			for (let j = 0; j < 10; j++) {
+				const item = document.createElement("div");
+				item.setAttribute("data-x", `${i}`);
+				item.setAttribute("data-y", `${j}`);
+				row.append(item);
+				item.addEventListener("click", (e) => attack(gridIndex, e));
+			}
+			gridContainer[gridIndex].append(row);
 		}
-		onClick();
 
 		if (index === 0) {
 			drop();
 		}
 	};
 
+	function attack(gridIndex: number, e: MouseEvent) {
+		if (gridIndex !== 1) return;
+
+		const cell = e.target as HTMLDivElement;
+		console.log(cell.classList);
+		if (cell.classList.contains("miss") || cell.classList.contains("hit"))
+			return;
+
+		if (cell.classList.contains("ship")) cell.classList.add("hit");
+		else cell.classList.add("miss");
+
+		const col = parseInt(cell.dataset.col);
+		const row = parseInt(cell.parentElement.dataset.row);
+		console.log(currPlayer.getName());
+		console.log(currPlayer.receiveAttack({ row, col }));
+	}
 	// const placeShips = () => {
 	// 	enemy.getShips().forEach((ship) => {
 	// 		const length = ship.getShipLength();
@@ -312,6 +333,43 @@ export default (
 	// 	});
 	// };
 
+	const randomiseShipPlacement = () => {
+		if (shipsPlaced) return;
+
+		let shipLength: number;
+		let fleet: string;
+		const ships = currPlayer.randomiseShipPlacement();
+
+		if (name === "human") fleet = "#your-fleet";
+		else fleet = "#opponent-fleet";
+
+		for (let i = 0; i < ships.length; i++) {
+			if (i < 1) shipLength = 4; // 0
+			else if (i < 3) shipLength = 3; // 1 2
+			else if (i < 6) shipLength = 2; // 3 4 5
+			else shipLength = 1; // 6 7 8 9
+
+			const ship = ships[i];
+			let row = ship.coords.row;
+			let col = ship.coords.col;
+
+			for (let j = 0; j < shipLength; j++) {
+				const cell = document.querySelector(
+					`${fleet} [data-x="${row}"][data-y="${col}"]`
+				);
+
+				cell.classList.add("ship");
+				if (ships[i].direction === "horizontal") {
+					col += 1;
+				} else if (ship.direction === "vertical") {
+					row += 1;
+				}
+			}
+		}
+
+		shipsPlaced = true;
+	};
+
 	const placeShips = (coordsDirection: CoordsDirection[]) => {};
-	return { appendGridItems, placeShips };
+	return { appendGridItems, placeShips, randomiseShipPlacement };
 };

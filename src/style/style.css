@@ -1,14 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Black+Ops+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Black+Ops+One&display=swap");
 
 :root {
 	--light-grey: rgb(245, 244, 246);
 	--black-shade: rgb(39, 39, 39);
 	--darker-grey: rgb(104, 111, 139);
 	--mid-grey: rgb(161, 160, 170);
-	--black-ops: 'Black Ops One',
-	cursive;
-	--anton: 'Anton',
-	sans-serif;
+	--black-ops: "Black Ops One", cursive;
+	--anton: "Anton", sans-serif;
 }
 
 html {
@@ -30,7 +28,7 @@ body {
 	height: 100vh;
 }
 
-#content{
+#content {
 	display: flex;
 	flex-direction: column;
 	align-items: space-around;
@@ -39,7 +37,7 @@ body {
 	gap: 1vh;
 }
 
-#game-header{
+#game-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -52,27 +50,27 @@ body {
 	font-size: 1.2rem;
 }
 
-a{
+a {
 	text-decoration: none;
 	color: black;
 }
 
-i:hover{
+i:hover {
 	font-size: 1.5rem;
 }
 
-i{
+i {
 	font-size: 1.2rem;
 }
 
-#fleets{
+#fleets {
 	display: flex;
 	justify-content: space-around;
 	width: 100%;
 	height: 100%;
 }
 
-.fleet{
+.fleet {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -83,7 +81,7 @@ i{
 	padding: 20px;
 }
 
-.player-heading-div{
+.player-heading-div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -94,17 +92,17 @@ i{
 	border-radius: 3%;
 }
 
-.fleet:nth-child(2) .player-heading-div{
+.fleet:nth-child(2) .player-heading-div {
 	background-color: var(--darker-grey);
 }
 
-.player-name{
+.player-name {
 	color: white;
 	font-family: var(--black-ops);
 	font-size: 1.5rem;
 }
 
-.alphabets{
+.alphabets {
 	margin-top: 15px;
 	display: flex;
 	width: 310px;
@@ -113,13 +111,13 @@ i{
 	font-family: var(--anton);
 }
 
-.numbers-grid-container{
+.numbers-grid-container {
 	margin-right: 15px;
 	display: flex;
 	gap: 5px;
 }
 
-.numbers{
+.numbers {
 	height: 300px;
 	display: flex;
 	flex-direction: column;
@@ -129,19 +127,21 @@ i{
 	font-family: var(--anton);
 }
 
-.numbers *, .alphabets *{
+.numbers *,
+.alphabets * {
 	font-weight: bold;
 }
 
-.grid-container{
+.grid-container {
 	width: 300px;
 	height: 300px;
 	display: flex;
 	flex-wrap: wrap;
+	flex-direction: column;
 	background-image: url("../images/gifs/wave.gif");
 }
 
-.grid-container *{
+.grid-container * {
 	width: 30px;
 	height: 30px;
 	background-color: transparent;
@@ -149,14 +149,18 @@ i{
 	border-left: solid 0.1px white;
 }
 
-.grid-container *:hover{
+.grid-row {
+	display: flex;
+	width: 100%;
+}
+
+.grid-container *:hover {
 	cursor: pointer;
 }
 
-/* .ship{
+.ship {
 	background-color: red;
-
-} */
+}
 
 /* .vertical:not(.border){
 	border-bottom: none;
@@ -166,25 +170,25 @@ i{
 	border-left: none;
 } */
 
-.hit{
+.hit {
 	background-image: url("../images/gifs/burning.webp");
 	background-size: cover;
 }
 
-.miss{
+.miss {
 	background-image: url("../images/gifs/cloud.gif");
-	background-size: cover;;
+	background-size: cover;
 }
 
-.done{
+.done {
 	filter: blur(12px);
 }
 
-.done:hover{
+.done:hover {
 	cursor: not-allowed;
 }
 
-.yard{
+.yard {
 	margin-top: 1vh;
 	display: flex;
 	width: 80%;
@@ -193,11 +197,11 @@ i{
 	align-items: center;
 }
 
-#your-fleet .grid-container div:hover{
+#your-fleet .grid-container div:hover {
 	cursor: default;
 }
 
-.yard-text{
+.yard-text {
 	/* transform: rotate(270deg); */
 	color: var(--mid-grey);
 	font-family: var(--anton);
@@ -205,7 +209,7 @@ i{
 	width: 10%;
 }
 
-.ships-container{
+.ships-container {
 	padding: 5px 0;
 	display: flex;
 	width: 70%;
@@ -214,7 +218,7 @@ i{
 	justify-content: space-between;
 }
 
-.ship-container{
+.ship-container {
 	border: 1px solid var(--mid-grey);
 	display: flex;
 	width: fit-content;
@@ -226,28 +230,28 @@ i{
 	cursor: grab;
 }
 
-.ship-part{
+.ship-part {
 	width: 30px;
 	height: 30px;
 }
 
-.dragging{
+.dragging {
 	background-color: var(--darker-grey);
 }
 
-.placed{
+.placed {
 	background-color: red;
 }
 
-.grid-container .ship-container{
+.grid-container .ship-container {
 	border: none;
 	background-color: red;
 }
 
-.landing-indicator{
+.landing-indicator {
 	background-color: lightgreen;
 }
 
-[class^="surround"]{
+[class^="surround"] {
 	background-color: yellow;
 }
