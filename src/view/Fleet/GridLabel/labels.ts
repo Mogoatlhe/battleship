@@ -10,9 +10,9 @@ const Label = (coords: string[], type: string) => {
 
 	labels.classList.add(`${type}s`);
 	labels.append(...containers);
-	const getAlphabets = () => labels;
+	const getLabels = () => labels;
 
-	return { getAlphaContainers: getAlphabets };
+	return { getLabels };
 };
 
 export default Label;
