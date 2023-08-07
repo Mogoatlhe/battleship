@@ -191,7 +191,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _GridLabel_alphabets__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GridLabel/alphabets */ \"./src/view/Fleet/GridLabel/alphabets.ts\");\n/* harmony import */ var _FleetHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FleetHeader */ \"./src/view/Fleet/FleetHeader.ts\");\n\n\nvar Fleet = function (fleetName) {\n    var alphabets = (0,_GridLabel_alphabets__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\n    var header = (0,_FleetHeader__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(fleetName);\n    var fleet = document.createElement(\"div\");\n    fleet.setAttribute(\"id\", fleetName);\n    fleet.classList.add(\"fleet\");\n    fleet.append(header.getFleetHeader());\n    fleet.append(alphabets.getAlphaContainers());\n    var getFleet = function () { return fleet; };\n    return { getFleet: getFleet };\n};\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Fleet);\n\n\n//# sourceURL=webpack://practice/./src/view/Fleet/Fleet.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _GridLabel_labels__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GridLabel/labels */ \"./src/view/Fleet/GridLabel/labels.ts\");\n/* harmony import */ var _FleetHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FleetHeader */ \"./src/view/Fleet/FleetHeader.ts\");\n\n\nvar Fleet = function (fleetName) {\n    var header = (0,_FleetHeader__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(fleetName);\n    var fleet = document.createElement(\"div\");\n    var numCoords = [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"10\"];\n    var alphabetCoords = [\"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"G\", \"H\", \"I\", \"J\"];\n    var alphabets = (0,_GridLabel_labels__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(alphabetCoords, \"alphabet\");\n    var numbers = (0,_GridLabel_labels__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(numCoords, \"number\");\n    fleet.setAttribute(\"id\", fleetName);\n    fleet.classList.add(\"fleet\");\n    fleet.append(header.getFleetHeader());\n    fleet.append(alphabets.getAlphaContainers());\n    var getFleet = function () { return fleet; };\n    return { getFleet: getFleet };\n};\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Fleet);\n\n\n//# sourceURL=webpack://practice/./src/view/Fleet/Fleet.ts?");
 
 /***/ }),
 
@@ -206,14 +206,14 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./src/view/Fleet/GridLabel/alphabets.ts":
-/*!***********************************************!*\
-  !*** ./src/view/Fleet/GridLabel/alphabets.ts ***!
-  \***********************************************/
+/***/ "./src/view/Fleet/GridLabel/labels.ts":
+/*!********************************************!*\
+  !*** ./src/view/Fleet/GridLabel/labels.ts ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nvar Alphabets = function () {\n    var alphabets = document.createElement(\"div\");\n    var alphabetCoords = [\"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"G\", \"H\", \"I\", \"J\"];\n    var alphaContainers = alphabetCoords.map(function (alpha) {\n        var alphaContainer = document.createElement(\"div\");\n        alphaContainer.textContent = alpha;\n        alphaContainer.classList.add(\"alphabet-container\");\n        return alphaContainer;\n    });\n    alphabets.classList.add(\"alphabets\");\n    alphabets.append.apply(alphabets, alphaContainers);\n    var getAlphabets = function () { return alphabets; };\n    return { getAlphaContainers: getAlphabets };\n};\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Alphabets);\n\n\n//# sourceURL=webpack://practice/./src/view/Fleet/GridLabel/alphabets.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nvar Label = function (coords, type) {\n    var labels = document.createElement(\"div\");\n    var containers = coords.map(function (el) {\n        var container = document.createElement(\"div\");\n        container.textContent = el;\n        container.classList.add(\"\".concat(type, \"-container\"));\n        return container;\n    });\n    labels.classList.add(\"\".concat(type, \"s\"));\n    labels.append.apply(labels, containers);\n    var getAlphabets = function () { return labels; };\n    return { getAlphaContainers: getAlphabets };\n};\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Label);\n\n\n//# sourceURL=webpack://practice/./src/view/Fleet/GridLabel/labels.ts?");
 
 /***/ }),
 
