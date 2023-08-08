@@ -167,6 +167,22 @@ i {
 	background-color: red;
 }
 
+#options-container {
+	margin-top: 10px;
+	display: flex;
+	width: 220px;
+	justify-content: space-between;
+}
+
+.reset,
+.randomise {
+	width: 100px;
+	height: 30px;
+	border-radius: 0;
+	border: 1px solid black;
+	font-family: var(--anton);
+	letter-spacing: 1px;
+}
 /* .vertical:not(.border){
 	border-bottom: none;
 }
