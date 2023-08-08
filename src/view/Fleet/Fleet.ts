@@ -22,6 +22,7 @@ const Fleet = (fleetName: string) => {
 	const getFleet = () => fleet;
 
 	const manageFleet = () => {
+		grid.getGridItem().randomiseShipPlacement();
 		if (fleetName !== "human") return;
 
 		const boardOptions = BoardOptions(() => grid);
