@@ -12,8 +12,8 @@ export default () => {
 	};
 
 	let isSunkCount = 10;
-	const shipPositions: Coordinates[][] = [];
-	const invalidPositions: Coordinates[] = [];
+	let shipPositions: Coordinates[][] = [];
+	let invalidPositions: Coordinates[] = [];
 	const attackAttempts: Coordinates[] = [];
 	const missedPositions: Coordinates[] = [];
 	const lengthFourShip = Ship(4);
@@ -145,6 +145,11 @@ export default () => {
 		shipIndex: number,
 		direction: string
 	) => {
+		if (!shipPositions.includes(undefined) && shipPositions.length > 0) {
+			shipPositions = [];
+			invalidPositions = [];
+		}
+
 		if (direction !== "vertical" && direction !== "horizontal")
 			throw new Error(
 				`"direction" value must be either "horizontal" or "vertical"`

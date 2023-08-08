@@ -1,8 +1,8 @@
 import Player from "../logic/player";
 import Grid from "./Fleet/Grid";
+import Reset from "./reset";
 
 const Randomise = (grid: typeof Grid) => {
-	let shipsPlaced = false;
 	const currGrid = grid(Player);
 	const randomiseBtn = document.createElement("button");
 	randomiseBtn.classList.add("randomise");
@@ -11,10 +11,11 @@ const Randomise = (grid: typeof Grid) => {
 	randomiseBtn.addEventListener("click", randomiseShips);
 
 	function randomiseShips() {
-		if (shipsPlaced) return;
+		const reset = Reset();
+		const resetBtn = reset.getResetBtn();
+		resetBtn.click();
 		const gridItem = currGrid.getGridItem();
 		gridItem.randomiseShipPlacement();
-		shipsPlaced = true;
 	}
 
 	const getBtn = () => randomiseBtn;

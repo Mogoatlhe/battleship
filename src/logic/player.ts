@@ -2,7 +2,7 @@ import Gameboard from "./gameboard";
 
 const Player = (name: string) => {
 	const pastAttempts: any[] = [];
-	const placedShips: { coords: Coordinates; direction: string }[] = [];
+	let placedShips: { coords: Coordinates; direction: string }[] = [];
 	const gameboard = Gameboard();
 	const getName = () => name;
 
@@ -30,6 +30,10 @@ const Player = (name: string) => {
 	};
 
 	const randomiseShipPlacement = () => {
+		if (placedShips.length > 0) {
+			placedShips = [];
+		}
+
 		const invalidCoords: { coords: Coordinates; direction: string }[] = [];
 		const ships = gameboard.getShips();
 		const directions = ["horizontal", "vertical"];

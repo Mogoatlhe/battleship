@@ -7,10 +7,10 @@ import Dragover from "./view/dragover";
 import ViewIndex from "./view";
 
 ViewIndex();
-const human = Player("human");
-const computer = Player("computer");
+// const human = Player("human");
+// const computer = Player("computer");
 
-const p1Grid = GridItem(0, () => human);
+// const p1Grid = GridItem(0, () => human);
 // const p2Grid = GridItem(1, () => computer);
 Dragover();
 
