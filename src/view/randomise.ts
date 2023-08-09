@@ -11,9 +11,12 @@ const Randomise = (grid: typeof Grid) => {
 	randomiseBtn.addEventListener("click", randomiseShips);
 
 	function randomiseShips() {
+		const portContainer = document.querySelector("#port-container");
+
+		if (portContainer !== null) portContainer.classList.add("hidden");
+
 		const reset = Reset();
-		const resetBtn = reset.getResetBtn();
-		resetBtn.click();
+		reset.resetGrid(undefined);
 		const gridItem = currGrid.getGridItem();
 		gridItem.randomiseShipPlacement();
 	}

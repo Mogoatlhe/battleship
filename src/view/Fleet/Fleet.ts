@@ -8,6 +8,7 @@ const Fleet = (fleetName: string) => {
 	const player = Player(fleetName);
 	const header = FleetHeader(fleetName);
 	const fleet = document.createElement("div");
+	const gridWithLabels = document.createElement("div");
 	const alphabetCoords = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 	const alphabets = Label(alphabetCoords, "alphabet");
 	const grid = Grid(() => player);
@@ -15,9 +16,12 @@ const Fleet = (fleetName: string) => {
 	fleet.setAttribute("id", fleetName);
 	fleet.classList.add("fleet");
 
+	gridWithLabels.classList.add("grid-with-labels");
+
 	fleet.append(header.getFleetHeader());
-	fleet.append(alphabets.getLabels());
-	fleet.append(grid.getContainer());
+	gridWithLabels.append(grid.getContainer());
+	gridWithLabels.querySelector(".grid").prepend(alphabets.getLabels());
+	fleet.append(gridWithLabels);
 
 	const getFleet = () => fleet;
 

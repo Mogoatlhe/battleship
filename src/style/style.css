@@ -104,9 +104,9 @@ i {
 
 .alphabets {
 	margin-top: 15px;
+	margin-left: 20px;
 	display: flex;
 	width: 310px;
-	justify-content: space-around;
 	color: var(--mid-grey);
 	font-family: var(--anton);
 }
@@ -114,6 +114,7 @@ i {
 .alphabet-container {
 	display: flex;
 	justify-content: center;
+	width: 30px;
 }
 
 .numbers-grid-container {
@@ -279,4 +280,9 @@ i {
 
 .hidden {
 	display: none;
+}
+
+.grid {
+	display: flex;
+	flex-direction: column;
 }
