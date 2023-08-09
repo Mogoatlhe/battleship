@@ -13,7 +13,8 @@ const Randomise = (grid: typeof Grid) => {
 	function randomiseShips() {
 		const portContainer = document.querySelector("#port-container");
 
-		if (portContainer !== null) portContainer.classList.add("hidden");
+		if (portContainer !== null)
+			portContainer.setAttribute("style", "display:none");
 
 		const reset = Reset();
 		reset.resetGrid(undefined);

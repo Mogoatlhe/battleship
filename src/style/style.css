@@ -103,7 +103,6 @@ i {
 }
 
 .alphabets {
-	margin-top: 15px;
 	margin-left: 20px;
 	display: flex;
 	width: 310px;
@@ -165,7 +164,8 @@ i {
 }
 
 #human .ship {
-	background-color: red;
+	background-color: rgba(0, 0, 0, 0.55);
+	/* border: 1px solid black; */
 }
 
 #options-container {
@@ -278,11 +278,44 @@ i {
 	background-color: yellow;
 }
 
-.hidden {
-	display: none;
-}
-
 .grid {
 	display: flex;
 	flex-direction: column;
+}
+
+.port-numbers-grid-container {
+	margin-top: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+}
+
+#port-container {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: 20px;
+}
+
+#port-instructions {
+	width: 200px;
+	font-size: 0.65rem;
+}
+
+#port-lines {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.port-line {
+	display: flex;
+	justify-content: space-between;
+	width: 200px;
+	border: 1px solid black;
+	padding: 5px;
+}
+
+.hidden {
+	display: none;
 }

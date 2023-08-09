@@ -6,7 +6,7 @@ const Reset = () => {
 	resetBtn.addEventListener("click", resetGrid);
 
 	function resetGrid(e: MouseEvent) {
-		const ships = document.querySelectorAll("#human .ship");
+		const ships = document.querySelectorAll("#human .grid-container .ship");
 		ships.forEach((ship) => {
 			ship.removeAttribute("class");
 		});
@@ -18,7 +18,7 @@ const Reset = () => {
 		const portContainer = document.querySelector("#port-container");
 
 		if (portContainer !== null) {
-			portContainer.classList.remove("hidden");
+			portContainer.removeAttribute("style");
 			return;
 		}
 
@@ -44,17 +44,10 @@ const Reset = () => {
 
 			portLine.classList.add("port-line");
 
-			for (let i = 0; i < 10; i++) {
-				const ship = document.createElement("span");
-				if (i < 1) ship.style.width = "120px";
-				else if (i < 3) ship.style.width = "90px";
-				else if (i < 6) ship.style.width = "60px";
-				else ship.style.width = "30px";
-
-				ship.style.height = "30px";
-				ship.classList.add("ship");
-				portLine.appendChild(ship);
-			}
+			if (i < 1) portLine.append(...attachShips(1, 4));
+			else if (i < 2) portLine.append(...attachShips(2, 3));
+			else if (i < 3) portLine.append(...attachShips(3, 2));
+			else portLine.append(...attachShips(4, 1));
 
 			portLines.appendChild(portLine);
 		}
@@ -62,6 +55,21 @@ const Reset = () => {
 		portContainer.appendChild(portInstructions);
 		portContainer.appendChild(portLines);
 		portNumbersGridContainer.prepend(portContainer);
+	};
+
+	const attachShips = (count: number, length: number) => {
+		const ships: Node[] = [];
+		const width = `${30 * length}px`;
+
+		for (let i = 0; i < count; i++) {
+			const ship = document.createElement("div");
+			ship.classList.add("ship");
+			ship.style.width = width;
+			ship.style.height = "30px";
+			ships.push(ship);
+		}
+
+		return ships;
 	};
 
 	const getResetBtn = () => resetBtn;
