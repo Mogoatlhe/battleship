@@ -276,3 +276,7 @@ i {
 [class^="surround"] {
 	background-color: yellow;
 }
+
+.hidden {
+	display: none;
+}
