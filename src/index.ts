@@ -12,7 +12,7 @@ ViewIndex();
 
 // const p1Grid = GridItem(0, () => human);
 // const p2Grid = GridItem(1, () => computer);
-Dragover();
+// Dragover();
 
 // p1Grid.appendGridItems(0);
 // p2Grid.appendGridItems(1);
