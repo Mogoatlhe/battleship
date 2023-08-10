@@ -172,7 +172,7 @@ i {
 	margin-top: 10px;
 	display: flex;
 	width: 220px;
-	justify-content: space-between;
+	justify-content: center;
 }
 
 .reset,
