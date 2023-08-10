@@ -10,9 +10,11 @@ const ViewIndex = () => {
 
 	fleets.setAttribute("id", "fleets");
 	fleets.append(humanFleet.getFleet());
+	fleets.append(computerFleet.getFleet());
 	content.append(header.getHeader());
 	content.append(fleets);
 	humanFleet.manageFleet();
+	computerFleet.manageFleet();
 };
 
 export default ViewIndex;

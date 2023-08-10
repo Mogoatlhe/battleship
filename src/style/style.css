@@ -173,8 +173,10 @@ i {
 	display: flex;
 	width: 220px;
 	justify-content: center;
+	gap: 5px;
 }
 
+.play,
 .reset,
 .randomise {
 	width: 100px;
@@ -317,5 +319,5 @@ i {
 }
 
 .hidden {
-	display: none;
+	display: none !important;
 }
