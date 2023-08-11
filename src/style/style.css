@@ -77,7 +77,6 @@ i {
 	gap: 2px;
 	width: 100%;
 	height: 100%;
-	width: 47%;
 	padding: 20px;
 }
 
@@ -163,7 +162,8 @@ i {
 	cursor: pointer;
 }
 
-#human .ship {
+#human .ship,
+.ship-types .ship {
 	background-color: rgba(0, 0, 0, 0.55);
 	/* border: 1px solid black; */
 }
@@ -304,7 +304,8 @@ i {
 	font-size: 0.65rem;
 }
 
-#port-lines {
+#port-lines,
+.grid-with-labels > * {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
@@ -313,11 +314,16 @@ i {
 .port-line {
 	display: flex;
 	justify-content: space-between;
-	width: 200px;
-	border: 1px solid black;
-	padding: 5px;
+	gap: 5px;
 }
 
 .hidden {
 	display: none !important;
+}
+
+.grid-with-labels {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
 }
