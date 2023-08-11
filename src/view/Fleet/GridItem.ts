@@ -53,7 +53,8 @@ const GridItem = (gridContainer: HTMLDivElement, player: typeof Player) => {
 
 	function attack(e: MouseEvent) {
 		const cell = e.target as HTMLDivElement;
-		console.log(cell.classList);
+
+		if (currPlayer.getName() === "human" && e.clientX !== 0) return;
 		if (cell.classList.contains("miss") || cell.classList.contains("hit"))
 			return;
 
