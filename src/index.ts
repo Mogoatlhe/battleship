@@ -1,29 +1,17 @@
 import "./style/style.css";
+import Header from "./view/Header/header";
+import Fleet from "./view/Fleet/Fleet";
 
-import Player from "./logic/player";
-import GridItem from "./view/gridItem";
-import Yard from "./view/yard";
-import Dragover from "./view/dragover";
-import ViewIndex from "./view";
+const header = Header();
+const humanFleet = Fleet("human");
+const computerFleet = Fleet("computer");
+const content = document.querySelector("#content");
+const fleets = document.createElement("div");
 
-ViewIndex();
-// const human = Player("human");
-// const computer = Player("computer");
-
-// const p1Grid = GridItem(0, () => human);
-// const p2Grid = GridItem(1, () => computer);
-// Dragover();
-
-// p1Grid.appendGridItems(0);
-// p2Grid.appendGridItems(1);
-
-try {
-	// p1Grid.randomiseShipPlacement();
-	// p2Grid.randomiseShipPlacement();
-	// console.log(computer.randomiseShipPlacement());
-	// Yard(computer.getShips());
-	// p1Grid.placeShips();
-	// p2Grid.placeShips();
-} catch (e) {
-	console.log(e);
-}
+fleets.setAttribute("id", "fleets");
+fleets.append(humanFleet.getFleet());
+fleets.append(computerFleet.getFleet());
+content.append(header.getHeader());
+content.append(fleets);
+humanFleet.manageFleet();
+computerFleet.manageFleet();
