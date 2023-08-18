@@ -91,12 +91,17 @@ const Player = (name: string) => {
 		return gameboard.receiveAttack(coordinates);
 	};
 
+	const didAllSink = () => {
+		return gameboard.didAllSink();
+	};
+
 	return {
 		getName,
 		receiveAttack,
 		placeShip,
 		randomiseShipPlacement,
 		getShips,
+		didAllSink,
 	};
 };
 
