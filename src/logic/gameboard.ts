@@ -1,16 +1,6 @@
 import Ship from "./ship";
 
 export default () => {
-	const createShipCollection = (length: number, amount: number) => {
-		const ships = [];
-
-		for (let i = 0; i < amount; i += 1) {
-			ships.push(Ship(length));
-		}
-
-		return ships;
-	};
-
 	let isSunkCount = 10;
 	let shipPositions: Coordinates[][] = [];
 	let invalidPositions: Coordinates[] = [];
@@ -25,6 +15,16 @@ export default () => {
 		lengthThreeShips,
 		lengthFourShip
 	);
+
+	function createShipCollection(length: number, amount: number) {
+		const ships = [];
+
+		for (let i = 0; i < amount; i += 1) {
+			ships.push(Ship(length));
+		}
+
+		return ships;
+	}
 
 	const getShips = () => ships;
 
