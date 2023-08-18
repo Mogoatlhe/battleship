@@ -8,6 +8,7 @@ const Fleet = (fleetName: string) => {
 	const player = Player(fleetName);
 	const header = FleetHeader(fleetName);
 	const fleet = document.createElement("div");
+	const shipTypes = document.createElement("div");
 	const gridWithLabels = document.createElement("div");
 	const alphabetCoords = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 	const alphabets = Label(alphabetCoords, "alphabet");
@@ -15,49 +16,9 @@ const Fleet = (fleetName: string) => {
 
 	fleet.setAttribute("id", fleetName);
 	fleet.classList.add("fleet");
-
 	gridWithLabels.classList.add("grid-with-labels");
-
-	const shipTypes = document.createElement("div");
 	shipTypes.classList.add("ship-types", "hidden");
-	for (let i = 0; i < 4; i++) {
-		let length, count;
-		const shipType = document.createElement("div");
-
-		if (i < 1) {
-			length = 4;
-			count = 1;
-		} else if (i < 2) {
-			length = 3;
-			count = 2;
-		} else if (i < 3) {
-			length = 2;
-			count = 3;
-		} else {
-			length = 1;
-			count = 4;
-		}
-
-		shipType.append(...attachShips(count, length));
-		shipType.classList.add("port-line", `ship-type-length-${length}`);
-
-		shipTypes.appendChild(shipType);
-	}
-
-	function attachShips(count: number, length: number) {
-		const ships: Node[] = [];
-		const width = `${10 * length}px`;
-
-		for (let i = 0; i < count; i++) {
-			const ship = document.createElement("div");
-			ship.classList.add("ship");
-			ship.style.width = width;
-			ship.style.height = "10px";
-			ships.push(ship);
-		}
-
-		return ships;
-	}
+	createShipStatus();
 
 	fleet.append(header.getFleetHeader());
 	gridWithLabels.append(grid.getContainer());
@@ -77,6 +38,47 @@ const Fleet = (fleetName: string) => {
 		const boardOptions = BoardOptions(() => grid);
 		fleet.append(boardOptions.getBoardOptions());
 	};
+
+	function createShipStatus() {
+		for (let i = 0; i < 4; i++) {
+			let length, count;
+			const shipType = document.createElement("div");
+
+			if (i < 1) {
+				length = 4;
+				count = 1;
+			} else if (i < 2) {
+				length = 3;
+				count = 2;
+			} else if (i < 3) {
+				length = 2;
+				count = 3;
+			} else {
+				length = 1;
+				count = 4;
+			}
+
+			shipType.append(...attachShips(count, length));
+			shipType.classList.add("port-line", `ship-type-length-${length}`);
+
+			shipTypes.appendChild(shipType);
+		}
+	}
+
+	function attachShips(count: number, length: number) {
+		const ships: Node[] = [];
+		const width = `${10 * length}px`;
+
+		for (let i = 0; i < count; i++) {
+			const ship = document.createElement("div");
+			ship.classList.add("ship");
+			ship.style.width = width;
+			ship.style.height = "10px";
+			ships.push(ship);
+		}
+
+		return ships;
+	}
 
 	return { getFleet, manageFleet };
 };
