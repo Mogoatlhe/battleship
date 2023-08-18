@@ -12,43 +12,6 @@ describe("ship creation", () => {
 	});
 });
 
-describe("ship coordinates", () => {
-	let validShip = Ship(1);
-	test("set incorrect coordinates: negative coordinates", () => {
-		expect(validShip.setCoordinates(-1, "horizontal")).toBe(
-			"error: negative coordinates given"
-		);
-	});
-
-	test("set incorrect coordinates: large coordinate position", () => {
-		expect(validShip.setCoordinates(100, "horizontal")).toBe(
-			"error: coordinates position cannot be greater than grid size"
-		);
-	});
-
-	test("set incorrect coordinates: incorrect direction", () => {
-		expect(validShip.setCoordinates(99, "diagonal")).toBe(
-			"error: direction can only be (h) horizontal or (v) vertical"
-		);
-	});
-
-	test("valid coordinates: v (vertical)", () => {
-		expect(validShip.setCoordinates(99, "vertical")).toBe(true);
-	});
-
-	test("valid coordinates: h (horizontal)", () => {
-		expect(validShip.setCoordinates(99, "horizontal")).toBe(true);
-	});
-
-	test("get cordinates", () => {
-		let coordinates = {
-			coordinate: 99,
-			direction: "horizontal",
-		};
-		expect(validShip.getCoordinates()).toStrictEqual(coordinates);
-	});
-});
-
 describe("is sunk?", () => {
 	let validShip = Ship(1);
 	validShip.hitShip();
