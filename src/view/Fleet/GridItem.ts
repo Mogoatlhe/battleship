@@ -9,8 +9,8 @@ const GridItem = (gridContainer: HTMLDivElement, player: typeof Player) => {
 			row.classList.add("grid-row");
 			for (let j = 0; j < 10; j++) {
 				const item = document.createElement("div");
-				item.setAttribute("data-x", `${i}`);
-				item.setAttribute("data-y", `${j}`);
+				item.setAttribute("data-y", `${i}`);
+				item.setAttribute("data-x", `${j}`);
 				row.append(item);
 				item.addEventListener("click", (e) => attack(e));
 			}
@@ -54,7 +54,10 @@ const GridItem = (gridContainer: HTMLDivElement, player: typeof Player) => {
 	function attack(e: MouseEvent) {
 		const cell = e.target as HTMLDivElement;
 
+		// prevent human from attacking own ship
 		if (currPlayer.getName() === "human" && e.clientX !== 0) return;
+
+		// prevent attacking same spot twice
 		if (cell.classList.contains("miss") || cell.classList.contains("hit"))
 			return;
 
@@ -62,7 +65,9 @@ const GridItem = (gridContainer: HTMLDivElement, player: typeof Player) => {
 		else cell.classList.add("miss");
 
 		const col = parseInt(cell.dataset.col);
-		const row = parseInt(cell.parentElement.dataset.row);
+		const row = parseInt(cell.dataset.row);
+
+		console.log(cell.dataset.x, cell.dataset.y);
 	}
 
 	const getFleet = () => {
