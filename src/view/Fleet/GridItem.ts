@@ -3,7 +3,7 @@ import Player from "../../logic/player";
 const GridItem = (gridContainer: HTMLDivElement, player: typeof Player) => {
 	const currPlayer = player("");
 
-	const appendGridItems = () => {
+	(() => {
 		for (let i = 0; i < 10; i++) {
 			const row = document.createElement("div");
 			row.classList.add("grid-row");
@@ -16,7 +16,7 @@ const GridItem = (gridContainer: HTMLDivElement, player: typeof Player) => {
 			}
 			gridContainer.append(row);
 		}
-	};
+	})();
 
 	const randomiseShipPlacement = () => {
 		// if (shipsPlaced) return;
@@ -73,7 +73,7 @@ const GridItem = (gridContainer: HTMLDivElement, player: typeof Player) => {
 		return fleet;
 	};
 
-	return { appendGridItems, randomiseShipPlacement };
+	return { randomiseShipPlacement };
 };
 
 export default GridItem;

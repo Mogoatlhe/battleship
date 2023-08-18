@@ -16,8 +16,6 @@ const Grid = (player: typeof Player) => {
 	numbersGridContainer.classList.add("numbers-grid-container");
 	numbersContainer.classList.add("numbers");
 	gridContainer.classList.add("grid-container");
-	const gridItem = GridItem(gridContainer, player);
-	gridItem.appendGridItems();
 
 	numbersContainer.append(numbers.getLabels());
 	numbersGridContainer.append(numbersContainer);
@@ -25,6 +23,7 @@ const Grid = (player: typeof Player) => {
 	grid.append(numbersGridContainer);
 	container.append(grid);
 
+	const gridItem = GridItem(gridContainer, player);
 	const getContainer = () => container;
 	const getGridItem = () => gridItem;
 
