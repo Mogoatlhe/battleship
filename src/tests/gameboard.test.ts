@@ -210,16 +210,16 @@ describe("receive attack", () => {
 describe("did all ships sink", () => {
 	const gameboard = Gameboard();
 	const ships = gameboard.getShips();
-	gameboard.placeShip({ row: 0, col: 9 }, 0, "horizontal");
-	gameboard.placeShip({ row: 3, col: 9 }, 1, "horizontal");
-	gameboard.placeShip({ row: 6, col: 7 }, 2, "horizontal");
-	gameboard.placeShip({ row: 9, col: 8 }, 3, "horizontal");
-	gameboard.placeShip({ row: 0, col: 6 }, 4, "horizontal");
-	gameboard.placeShip({ row: 3, col: 1 }, 5, "horizontal");
-	gameboard.placeShip({ row: 5, col: 2 }, 6, "vertical");
-	gameboard.placeShip({ row: 0, col: 0 }, 7, "horizontal");
-	gameboard.placeShip({ row: 5, col: 5 }, 8, "vertical");
 	gameboard.placeShip({ row: 8, col: 0 }, 9, "horizontal");
+	gameboard.placeShip({ row: 5, col: 5 }, 8, "vertical");
+	gameboard.placeShip({ row: 0, col: 0 }, 7, "horizontal");
+	gameboard.placeShip({ row: 5, col: 2 }, 6, "vertical");
+	gameboard.placeShip({ row: 3, col: 1 }, 5, "horizontal");
+	gameboard.placeShip({ row: 0, col: 6 }, 4, "horizontal");
+	gameboard.placeShip({ row: 9, col: 8 }, 3, "horizontal");
+	gameboard.placeShip({ row: 6, col: 7 }, 2, "horizontal");
+	gameboard.placeShip({ row: 3, col: 9 }, 1, "horizontal");
+	gameboard.placeShip({ row: 0, col: 9 }, 0, "horizontal");
 
 	test("not all ships sunk - no hit", () => {
 		expect(gameboard.didAllSink()).toBe(false);
