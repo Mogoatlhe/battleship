@@ -32,9 +32,17 @@ export default (length: number) => {
 		coordinates = start;
 	};
 
+	const getShipInfo = () => ({
+		length,
+		coordinates,
+		direction,
+		isSunk: isSunk(),
+	});
+
 	return {
 		setShipCoordinates,
 		getShipLength,
+		getShipInfo,
 		hitShip,
 		isSunk,
 	};
