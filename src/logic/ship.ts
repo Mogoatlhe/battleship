@@ -1,4 +1,6 @@
 export default (length: number) => {
+	let direction: string;
+	let coordinates: Coordinates;
 	const ship: string[] = [];
 	let hitCount = 0;
 
@@ -25,7 +27,13 @@ export default (length: number) => {
 		return true;
 	};
 
+	const setShipCoordinates = (start: Coordinates, currDirection: string) => {
+		direction = currDirection;
+		coordinates = start;
+	};
+
 	return {
+		setShipCoordinates,
 		getShipLength,
 		hitShip,
 		isSunk,
