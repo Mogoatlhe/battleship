@@ -11,6 +11,7 @@ const GridItem = (gridContainer: HTMLDivElement, player: typeof Player) => {
 				const item = document.createElement("div");
 				item.setAttribute("data-y", `${i}`);
 				item.setAttribute("data-x", `${j}`);
+				item.classList.add("cell");
 				row.append(item);
 				item.addEventListener("click", (e) => attack(e));
 			}
