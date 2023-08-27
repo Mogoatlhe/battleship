@@ -129,15 +129,19 @@ export default () => {
 
 		if (hitShipIndex < 0) {
 			missedPositions.push(coordinates);
-			return false;
+			return { isAllSunk: false, shipInfo: undefined };
 		}
 
 		const ship = ships[hitShipIndex];
 		ship.hitShip();
+		const shipInfo = ship.getShipInfo();
 
-		if (ship.isSunk()) isSunkCount -= 1;
+		if (shipInfo.isSunk) isSunkCount -= 1;
 
-		return true;
+		return {
+			shipInfo,
+			isAllSunk: didAllSink(),
+		};
 	};
 
 	const placeShip = (
@@ -157,6 +161,7 @@ export default () => {
 		const ship = ships[shipIndex];
 		const length = ship.getShipLength();
 		shipPositions[shipIndex] = getShipPositions(start, length, direction);
+		ship.setShipCoordinates(start, direction);
 
 		return shipPositions;
 	};
