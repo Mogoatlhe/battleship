@@ -67,14 +67,23 @@ const GridItem = (gridContainer: HTMLDivElement, player: typeof Player) => {
 		if (cell.classList.contains("miss") || cell.classList.contains("hit"))
 			return;
 
-		if (cell.classList.contains("ship")) cell.classList.add("hit");
-		else cell.classList.add("miss");
-
 		const col = parseInt(cell.dataset.x);
 		const row = parseInt(cell.dataset.y);
 
-		const isHit = currPlayer.receiveAttack({ row, col });
-		console.log(isHit);
+		const { shipInfo, isAllSunk } = currPlayer.receiveAttack({
+			row,
+			col,
+		});
+
+		if (shipInfo !== undefined) {
+			cell.classList.add("hit");
+			if (shipInfo.isSunk)
+				surround(shipInfo.direction, shipInfo.length, shipInfo.coordinates);
+		} else cell.classList.add("miss");
+
+		if (isAllSunk) {
+			gridContainer.classList.add("done");
+		}
 	}
 
 	const getFleet = () => {
@@ -83,6 +92,50 @@ const GridItem = (gridContainer: HTMLDivElement, player: typeof Player) => {
 		else fleet = "#computer";
 
 		return fleet;
+	};
+
+	const surround = (direction: string, length: number, start: Coordinates) => {
+		let rowIncrement: number, colIncrement: number;
+		let before: Coordinates, middle: Coordinates, after: Coordinates;
+		if (direction === "horizontal") {
+			before = { row: start.row - 1, col: start.col - 1 };
+			middle = { row: start.row, col: start.col - 1 };
+			after = { row: start.row + 1, col: start.col - 1 };
+			rowIncrement = 0;
+			colIncrement = 1;
+		} else {
+			before = { row: start.row - 1, col: start.col - 1 };
+			middle = { row: start.row - 1, col: start.col };
+			after = { row: start.row - 1, col: start.col + 1 };
+			rowIncrement = 1;
+			colIncrement = 0;
+		}
+
+		for (let i = 0; i <= length + 1; i++) {
+			const beforeGrid = document.querySelector(
+				`${getFleet()} [data-x="${before.col}"][data-y="${before.row}"]`
+			);
+			const middleGrid = document.querySelector(
+				`${getFleet()} [data-x="${middle.col}"][data-y="${middle.row}"]`
+			);
+			const afterGrid = document.querySelector(
+				`${getFleet()} [data-x="${after.col}"][data-y="${after.row}"]`
+			);
+
+			if (beforeGrid !== null) beforeGrid.classList.add("miss");
+			if (middleGrid !== null && !middleGrid.classList.contains("hit"))
+				middleGrid.classList.add("miss");
+			if (afterGrid !== null) afterGrid.classList.add("miss");
+
+			before.col += colIncrement;
+			before.row += rowIncrement;
+
+			middle.col += colIncrement;
+			middle.row += rowIncrement;
+
+			after.col += colIncrement;
+			after.row += rowIncrement;
+		}
 	};
 
 	return { randomiseShipPlacement };
