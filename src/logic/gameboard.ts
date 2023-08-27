@@ -159,9 +159,10 @@ export default () => {
 				`"direction" value must be either "horizontal" or "vertical"`
 			);
 		const ship = ships[shipIndex];
+		const startTemp = { row: start.row, col: start.col };
 		const length = ship.getShipLength();
 		shipPositions[shipIndex] = getShipPositions(start, length, direction);
-		ship.setShipCoordinates(start, direction);
+		ship.setShipCoordinates(startTemp, direction);
 
 		return shipPositions;
 	};
