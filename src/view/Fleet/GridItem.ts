@@ -83,7 +83,15 @@ const GridItem = (gridContainer: HTMLDivElement, player: typeof Player) => {
 		} else cell.classList.add("miss");
 
 		if (isAllSunk) {
-			gridContainer.classList.add("done");
+			const cells = gridContainer.querySelectorAll(".cell");
+			const gridRow = gridContainer.querySelectorAll(".grid-row");
+			cells.forEach((cell) => {
+				cell.classList.add("done");
+			});
+
+			gridRow.forEach((row) => {
+				row.classList.add("hide-border");
+			});
 		}
 	}
 

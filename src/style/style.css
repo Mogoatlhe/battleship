@@ -153,6 +153,10 @@ i {
 	border-left: solid 0.1px white;
 }
 
+.hide-border {
+	border-bottom: solid 0.1px transparent;
+}
+
 .grid-row {
 	display: flex;
 	width: 100%;
